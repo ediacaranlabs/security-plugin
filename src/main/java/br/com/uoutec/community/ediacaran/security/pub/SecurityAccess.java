@@ -1,10 +1,12 @@
 package br.com.uoutec.community.ediacaran.security.pub;
 
-import br.com.uoutec.community.ediacaran.core.security.GuaranteedAccessTo;
-import br.com.uoutec.community.ediacaran.core.security.Privilege;
+import org.brandao.brutos.ApplicationContext;
+import org.brandao.brutos.MvcResponse;
+import org.brandao.brutos.mapping.Action;
+import org.brandao.brutos.mapping.Controller;
 
 public interface SecurityAccess {
 
-	boolean accept(GuaranteedAccessTo guaranteedAccessTo, Class<? extends Privilege> privilege);
+	boolean accept(Action action, Controller controller, MvcResponse response,ApplicationContext context);
 	
 }
