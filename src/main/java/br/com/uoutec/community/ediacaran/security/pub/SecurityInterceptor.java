@@ -26,7 +26,7 @@ public class SecurityInterceptor
 	extends AbstractInterceptor
 	implements PublicType {
 
-	public static final String ADM_CONTEXT = "${plugins.adm.context}";
+	public static final String ADM_CONTEXT = "${plugins.ediacaran.adm.context}";
 	
 	@Inject
 	private SecurityConfig securityConfig;
