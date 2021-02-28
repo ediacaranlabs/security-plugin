@@ -26,7 +26,7 @@ public class SecurityInterceptor
 	extends AbstractInterceptor
 	implements PublicType {
 
-	public static final String ADM_CONTEXT = "${plugins.ediacaran.adm.context}";
+	public static final String ADM_CONTEXT = "${plugins.ediacaran.front.admin_context}";
 	
 	@Inject
 	private SecurityConfig securityConfig;
@@ -41,7 +41,7 @@ public class SecurityInterceptor
 		Controller controller                 = resourceAction.getController();
 		Action action                         = resourceAction.getMethodForm();
 		SecurityAccess securityAccess         = securityConfig.getSecurityAccess();
-		if(securityAccess.accept(action, controller, handler.getResponse(), handler.getContext())) {
+		if(securityAccess == null || securityAccess.accept(action, controller, handler.getResponse(), handler.getContext())) {
 			stack.next(handler);
 		}
 		
