@@ -22,75 +22,75 @@ public class SecurityConstraintBuilderImp
 	
 	public static final String PATCH = "PATCH";
 	
-	private SecurityConstraint sc;
+	private SecurityConstraint securityConstraint;
 	
-	public SecurityConstraintBuilderImp(SecurityConstraint sc, SecurityInfo si) {
-		super(si);
-		this.sc = sc;
+	public SecurityConstraintBuilderImp(SecurityConstraint sc, SecurityBuilderImp parent) {
+		super(parent);
+		this.securityConstraint = sc;
 	}
 	
 	public SecurityConstraintBuilderImp addRole(String value) {
-		sc.getRoles().add(new Role(value.toUpperCase(), null));
+		securityConstraint.getRoles().add(new Role(value.toUpperCase(), null));
 		return this;
 	}
 	
 	public SecurityConstraintBuilderImp addRole(String value, String description) {
-		sc.getRoles().add(new Role(value.toUpperCase(), description));
+		securityConstraint.getRoles().add(new Role(value.toUpperCase(), description));
 		return this;
 	}
 	
 	public SecurityConstraintBuilderImp get() {
-		sc.getMethods().add(GET);
+		securityConstraint.getMethods().add(GET);
 		return this;
 	}
 	
 	public SecurityConstraintBuilderImp head() {
-		sc.getMethods().add(HEAD);
+		securityConstraint.getMethods().add(HEAD);
 		return this;
 	}
 
 	public SecurityConstraintBuilderImp post() {
-		sc.getMethods().add(POST);
+		securityConstraint.getMethods().add(POST);
 		return this;
 	}
 	
 	public SecurityConstraintBuilderImp put() {
-		sc.getMethods().add(PUT);
+		securityConstraint.getMethods().add(PUT);
 		return this;
 	}
 	
 	public SecurityConstraintBuilderImp delete() {
-		sc.getMethods().add(DELETE);
+		securityConstraint.getMethods().add(DELETE);
 		return this;
 	}
 	
 	public SecurityConstraintBuilderImp options() {
-		sc.getMethods().add(OPTIONS);
+		securityConstraint.getMethods().add(OPTIONS);
 		return this;
 	}
 	
 	public SecurityConstraintBuilderImp trace() {
-		sc.getMethods().add(TRACE);
+		securityConstraint.getMethods().add(TRACE);
 		return this;
 	}
 	
 	public SecurityConstraintBuilderImp patch() {
-		sc.getMethods().add(PATCH);
+		securityConstraint.getMethods().add(PATCH);
 		return this;
 	}
 
 	public SecurityConstraintBuilderImp connect() {
-		sc.getMethods().add(CONNECT);
+		securityConstraint.getMethods().add(CONNECT);
 		return this;
 	}
 	
 	public SecurityConstraintBuilderImp method(String value) {
-		sc.getMethods().add(value.toUpperCase());
+		securityConstraint.getMethods().add(value.toUpperCase());
 		return this;
 	}
 	
 	public SecurityConstraintBuilder setTransportQuarantee(String value) {
-		sc.setTransportQuarantee(value);
+		securityConstraint.setTransportQuarantee(value);
 		return this;
 	}
 	

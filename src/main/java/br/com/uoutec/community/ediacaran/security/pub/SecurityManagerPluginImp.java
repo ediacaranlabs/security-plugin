@@ -12,7 +12,7 @@ public class SecurityManagerPluginImp
 
 	@Inject
 	public SecurityManagerPluginImp(SecurityManager securityManager, ContextManager contextManager) {
-		super(new SecurityInfo(), securityManager, contextManager);
+		super(new SecurityConfig(), securityManager, contextManager);
 	}
 
 }
