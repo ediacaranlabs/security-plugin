@@ -15,8 +15,6 @@ import org.brandao.brutos.mapping.Controller;
 import org.brandao.brutos.web.WebMvcRequest;
 
 import br.com.uoutec.community.ediacaran.VarParser;
-import br.com.uoutec.community.ediacaran.plugins.EntityContextPlugin;
-import br.com.uoutec.community.ediacaran.plugins.PluginType;
 import br.com.uoutec.community.ediacaran.plugins.PublicType;
 
 @Singleton
@@ -29,7 +27,7 @@ public class SecurityInterceptor
 	public static final String ADM_CONTEXT = "${plugins.ediacaran.front.admin_context}";
 	
 	@Inject
-	private SecurityConfig securityConfig;
+	private SecurityManager securityManager;
 	
 	@Inject
 	protected VarParser varParser;
@@ -40,7 +38,7 @@ public class SecurityInterceptor
 		ResourceAction resourceAction         = handler.getRequest().getResourceAction();
 		Controller controller                 = resourceAction.getController();
 		Action action                         = resourceAction.getMethodForm();
-		SecurityAccess securityAccess         = securityConfig.getSecurityAccess();
+		SecurityAccess securityAccess         = securityManager.getSecurityAccess();
 		if(securityAccess == null || securityAccess.accept(action, controller, handler.getResponse(), handler.getContext())) {
 			stack.next(handler);
 		}

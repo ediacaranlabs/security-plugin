@@ -5,9 +5,13 @@ import javax.inject.Singleton;
 import br.com.uoutec.community.ediacaran.plugins.PublicBean;
 
 @Singleton
-public class SecurityConfig implements PublicBean{
+public class SecurityConfig 
+	implements PublicBean{
 
 	private SecurityAccess securityAccess;
+	
+	public SecurityConfig() {
+	}
 	
 	public void setConfigureAccess(SecurityAccess value) {
 		//TODO: security

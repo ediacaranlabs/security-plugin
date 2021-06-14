@@ -7,6 +7,6 @@ import org.brandao.brutos.mapping.Controller;
 
 public interface SecurityAccess {
 
-	boolean accept(Action action, Controller controller, MvcResponse response,ApplicationContext context);
+	boolean accept(Action action, Controller controller, MvcResponse response, ApplicationContext context);
 	
 }
