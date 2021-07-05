@@ -50,6 +50,6 @@ public interface SecurityConstraintBuilder extends SecurityBuilder{
 	
 	SecurityConstraintBuilder method(String value);
 	
-	SecurityConstraintBuilder setTransportQuarantee(String value);
+	SecurityConstraintBuilder setUserConstraint(String value);
 	
 }

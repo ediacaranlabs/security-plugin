@@ -89,8 +89,8 @@ public class SecurityConstraintBuilderImp
 		return this;
 	}
 	
-	public SecurityConstraintBuilder setTransportQuarantee(String value) {
-		securityConstraint.setTransportQuarantee(value);
+	public SecurityConstraintBuilder setUserConstraint(String value) {
+		securityConstraint.setUserConstraint(value);
 		return this;
 	}
 	

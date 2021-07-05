@@ -1,8 +1,9 @@
 package br.com.uoutec.community.ediacaran.security.pub;
 
 import br.com.uoutec.community.ediacaran.ContextManager;
+import br.com.uoutec.community.ediacaran.plugins.PublicBean;
 
-public interface SecurityManager {
+public interface SecurityManager extends PublicBean{
 
 	void applySecurityConfig(SecurityConfig value, ContextManager contextManager);
 	
