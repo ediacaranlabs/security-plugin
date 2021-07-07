@@ -22,6 +22,19 @@ import br.com.uoutec.community.ediacaran.security.pub.SecurityManager;
 public class SecurityManagerImp 
 	implements SecurityManager{
 
+	private AuthenticationProvider authenticationProvider;
+	
+	@Override
+	public void registerAuthenticationProvider(AuthenticationProvider value) {
+		//TODO: security
+		this.authenticationProvider = value;
+	}
+
+	@Override
+	public AuthenticationProvider getCurrentAuthenticationProvider() {
+		return authenticationProvider;
+	}
+	
 	@SuppressWarnings("serial")
 	@Override
 	public void applySecurityConfig(SecurityConfig value, ContextManager contextManager) {
@@ -246,4 +259,5 @@ public class SecurityManagerImp
 
 		
 	}
+
 }

@@ -9,6 +9,10 @@ public interface SecurityManager extends PublicBean{
 	
 	void destroySecurityConfig(ContextManager contextManager);
 
+	void registerAuthenticationProvider(AuthenticationProvider value);
+	
+	AuthenticationProvider getCurrentAuthenticationProvider();
+	
 	SecurityAccess getSecurityAccess();
 	
 }

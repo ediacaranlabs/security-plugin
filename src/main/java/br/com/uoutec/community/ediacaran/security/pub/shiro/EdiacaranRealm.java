@@ -12,18 +12,23 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 
+import br.com.uoutec.community.ediacaran.security.pub.SecurityManager;
+
+import br.com.uoutec.community.ediacaran.plugins.EntityContextPlugin;
 import br.com.uoutec.community.ediacaran.security.pub.Authentication;
 import br.com.uoutec.community.ediacaran.security.pub.AuthenticationProvider;
 
 public class EdiacaranRealm extends AuthorizingRealm{
 
-	private AuthenticationProvider authenticationProvider;
-	
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		
 		Object principal = principals.getPrimaryPrincipal();
 
+		SecurityManager securityManager = EntityContextPlugin.getEntity(SecurityManager.class);
+		
+		AuthenticationProvider authenticationProvider  = securityManager.getCurrentAuthenticationProvider();
+		
         Authentication authentication = authenticationProvider.get(principal);
 		
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
@@ -39,6 +44,10 @@ public class EdiacaranRealm extends AuthorizingRealm{
 		
         Object principal = token.getPrincipal();
         
+		SecurityManager securityManager = EntityContextPlugin.getEntity(SecurityManager.class);
+		
+		AuthenticationProvider authenticationProvider  = securityManager.getCurrentAuthenticationProvider();
+		
         Authentication authentication = authenticationProvider.get(principal);
         
         if(authentication == null) {
