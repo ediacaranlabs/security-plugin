@@ -12,16 +12,15 @@ import java.util.Set;
 import javax.inject.Singleton;
 
 import br.com.uoutec.community.ediacaran.ContextManager;
-import br.com.uoutec.community.ediacaran.security.pub.Role;
-import br.com.uoutec.community.ediacaran.security.pub.SecurityAccess;
-import br.com.uoutec.community.ediacaran.security.pub.SecurityConfig;
-import br.com.uoutec.community.ediacaran.security.pub.SecurityConstraint;
-import br.com.uoutec.community.ediacaran.security.pub.SecurityManager;
 
 @Singleton
 public class SecurityManagerImp 
 	implements SecurityManager{
 
+	public static final String LOGIN_PAGE = "/plugins/ediacaran/security/login";
+	
+	public static final String LOGOUT_PAGE = "/plugins/ediacaran/security/logout";
+	
 	private AuthenticationProvider authenticationProvider;
 	
 	@Override
@@ -43,8 +42,18 @@ public class SecurityManagerImp
 		
 		addRoles(value, contextManager);
 		
+		contextManager.addApplicationListener("org.apache.shiro.web.env.EnvironmentLoaderListener");
+		
 		if(value.getLoginPage() != null) {
-			contextManager.setLoginConfig(value.getMethod(), value.getRealmName(), value.getLoginPage(), value.getErrorPage());
+			contextManager.setLoginConfig(value.getMethod(), value.getRealmName(), "/login", "/login?error");
+			
+			contextManager.addFilter(
+					"LoginRedirectFilter", 
+					new LoginRedirectFilter(LOGIN_PAGE, LOGOUT_PAGE), 
+					Arrays.asList("/login", "/logout"), 
+					Arrays.asList("REQUEST", "FORWARD", "INCLUDE", "ERROR"),
+					new HashMap<String,String>());
+			
 		}
 		
 		contextManager.addFilter(
