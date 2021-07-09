@@ -43,6 +43,10 @@ public class SecurityManagerImp
 		
 		addRoles(value, contextManager);
 		
+		if(value.getLoginPage() != null) {
+			contextManager.setLoginConfig(value.getMethod(), value.getRealmName(), value.getLoginPage(), value.getErrorPage());
+		}
+		
 		contextManager.addFilter(
 				"ShiroFilter", 
 				"org.apache.shiro.web.servlet.ShiroFilter", 
