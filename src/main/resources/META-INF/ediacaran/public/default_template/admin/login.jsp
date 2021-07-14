@@ -5,6 +5,6 @@
 String template = (String)pageContext.getAttribute("template");
 javax.servlet.ServletContext context = application.getContext("/plugins/ediacaran/front");
 javax.servlet.RequestDispatcher rd = 
-	context.getRequestDispatcher(template + "/admin/login/login.jsp");
+	context.getRequestDispatcher("/" + template + "/admin/login/login.jsp");
 	rd.include(request, response);
 %>

@@ -45,7 +45,7 @@ public class SecurityManagerImp
 		contextManager.addApplicationListener("org.apache.shiro.web.env.EnvironmentLoaderListener");
 		
 		if(value.getLoginPage() != null) {
-			contextManager.setLoginConfig(value.getMethod(), value.getRealmName(), "/login", "/login?error");
+			contextManager.setLoginConfig(value.getMethod(), value.getRealmName() == null? "ediacaranRealm" : value.getRealmName(), "/login", "/login?error");
 			
 			contextManager.addFilter(
 					"LoginRedirectFilter", 
@@ -54,6 +54,9 @@ public class SecurityManagerImp
 					Arrays.asList("REQUEST", "FORWARD", "INCLUDE", "ERROR"),
 					new HashMap<String,String>());
 			
+		}
+		else {
+			contextManager.setLoginConfig(value.getMethod(), value.getRealmName() == null? "ediacaranRealm" : value.getRealmName(), null, null);
 		}
 		
 		contextManager.addFilter(
