@@ -32,18 +32,15 @@ public class LoginRedirectFilter implements Filter{
 		
 		HttpServletRequest httpRequest = (HttpServletRequest)request;
 		
-		if(httpRequest.getRequestURI().endsWith("/login")) {
-			httpRequest.getServletContext().getContext("/plugins/ediacaran/security").getRequestDispatcher("/login").forward(httpRequest, response);
-		}
-		else {
-			httpRequest.getServletContext().getContext("/plugins/ediacaran/security").getRequestDispatcher("/logout").forward(httpRequest, response);
-			
+		String uri  = httpRequest.getRequestURI();
+		
+		if(uri.startsWith("/plugins/ediacaran/security")) {
+			chain.doFilter(httpRequest, response);
+			return;
 		}
 		
-					
-		//String page = httpRequest.getRequestURI().endsWith("/login")? loginPage : logoutPage;
+		String page = uri.endsWith("/login")? loginPage : logoutPage;
 		
-		/*
 		String redirect = 
 				"<html>\n" +
 				"	<head>\n" +
@@ -56,7 +53,6 @@ public class LoginRedirectFilter implements Filter{
 		ServletOutputStream sos = response.getOutputStream();
 		sos.write(redirect.getBytes());
 		sos.flush();
-		*/
 	}
 
 	@Override
