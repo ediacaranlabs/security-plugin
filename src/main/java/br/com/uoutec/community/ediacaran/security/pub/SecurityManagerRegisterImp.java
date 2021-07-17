@@ -5,6 +5,8 @@ import javax.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import br.com.uoutec.community.ediacaran.core.security.SecurityManager;
+
 @Singleton
 public class SecurityManagerRegisterImp 
 	implements SecurityManagerRegister{

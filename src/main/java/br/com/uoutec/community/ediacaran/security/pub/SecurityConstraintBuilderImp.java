@@ -1,5 +1,8 @@
 package br.com.uoutec.community.ediacaran.security.pub;
 
+import br.com.uoutec.community.ediacaran.core.security.Role;
+import br.com.uoutec.community.ediacaran.core.security.SecurityConstraint;
+
 public class SecurityConstraintBuilderImp 
 	extends SecurityBuilderImp 
 	implements SecurityConstraintBuilder {

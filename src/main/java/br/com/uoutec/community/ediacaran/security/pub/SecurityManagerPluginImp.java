@@ -4,6 +4,8 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import br.com.uoutec.community.ediacaran.ContextManager;
+import br.com.uoutec.community.ediacaran.core.security.SecurityConfig;
+import br.com.uoutec.community.ediacaran.core.security.SecurityManager;
 
 @Singleton
 public class SecurityManagerPluginImp

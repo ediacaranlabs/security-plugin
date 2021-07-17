@@ -3,24 +3,14 @@ package br.com.uoutec.community.ediacaran.security.pub;
 import javax.inject.Singleton;
 
 import br.com.uoutec.community.ediacaran.ContextManager;
+import br.com.uoutec.community.ediacaran.core.security.SecurityConfig;
+import br.com.uoutec.community.ediacaran.core.security.SecurityManager;
+import br.com.uoutec.community.ediacaran.core.security.jaas.Subject;
 
 @Singleton
 public class SecurityManagerImp 
 	implements SecurityManager{
 
-	private AuthenticationProvider authenticationProvider;
-	
-	@Override
-	public void registerAuthenticationProvider(AuthenticationProvider value) {
-		//TODO: security
-		this.authenticationProvider = value;
-	}
-
-	@Override
-	public AuthenticationProvider getCurrentAuthenticationProvider() {
-		return authenticationProvider;
-	}
-	
 	@Override
 	public void applySecurityConfig(SecurityConfig value, ContextManager contextManager) {
 		SecurityContextConfigurerListener ctxc = new SecurityContextConfigurerListener(value);
@@ -33,7 +23,7 @@ public class SecurityManagerImp
 	}
 
 	@Override
-	public SecurityAccess getSecurityAccess() {
+	public Subject getSubject() {
 		return null;
 	}
 

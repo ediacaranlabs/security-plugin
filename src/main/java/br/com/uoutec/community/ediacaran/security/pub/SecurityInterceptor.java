@@ -15,6 +15,7 @@ import org.brandao.brutos.mapping.Controller;
 import org.brandao.brutos.web.WebMvcRequest;
 
 import br.com.uoutec.community.ediacaran.VarParser;
+import br.com.uoutec.community.ediacaran.core.security.SecurityManager;
 import br.com.uoutec.community.ediacaran.plugins.PublicType;
 
 @Singleton
@@ -38,7 +39,7 @@ public class SecurityInterceptor
 		ResourceAction resourceAction         = handler.getRequest().getResourceAction();
 		Controller controller                 = resourceAction.getController();
 		Action action                         = resourceAction.getMethodForm();
-		SecurityAccess securityAccess         = securityManager.getSecurityAccess();
+		SecurityAccess securityAccess         = null;//securityManager.getSecurityAccess();
 		if(securityAccess == null || securityAccess.accept(action, controller, handler.getResponse(), handler.getContext())) {
 			stack.next(handler);
 		}

@@ -6,7 +6,7 @@ public interface SecurityBuilder {
 	
 	public static final String DIGEST = "DIGEST";
 	
-	public static final String CERT   = "CERT";
+	public static final String CERT   = "CLIENT-CERT";
 	
 	public static final String FORM   = "FORM";
 	

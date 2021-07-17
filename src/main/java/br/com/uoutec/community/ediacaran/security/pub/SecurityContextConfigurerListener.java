@@ -13,6 +13,10 @@ import org.apache.catalina.Context;
 import org.apache.catalina.realm.JAASRealm;
 
 import br.com.uoutec.community.ediacaran.ContextManagerListener;
+import br.com.uoutec.community.ediacaran.core.security.Role;
+import br.com.uoutec.community.ediacaran.core.security.SecurityConfig;
+import br.com.uoutec.community.ediacaran.core.security.SecurityConstraint;
+import br.com.uoutec.community.ediacaran.core.security.jaas.RolePrincipal;
 
 public class SecurityContextConfigurerListener implements ContextManagerListener<Context> {
 
@@ -36,7 +40,6 @@ public class SecurityContextConfigurerListener implements ContextManagerListener
 		applySecurityConfig(securityConfig, context);
 	}
 	
-	@SuppressWarnings("serial")
 	public void applySecurityConfig(SecurityConfig value, Context context) {
 		
 		ContextConfigurer contextConfigurer = new TomcatContextConfigurer(context);
@@ -45,7 +48,7 @@ public class SecurityContextConfigurerListener implements ContextManagerListener
 		
 		addRoles(value, contextConfigurer);
 		
-		contextConfigurer.addApplicationListener("org.apache.shiro.web.env.EnvironmentLoaderListener");
+		//contextConfigurer.addApplicationListener("org.apache.shiro.web.env.EnvironmentLoaderListener");
 		
 		if(value.getLoginPage() != null) {
 			contextConfigurer.setLoginConfig(value.getMethod(), value.getRealmName() == null? "ediacaranRealm" : value.getRealmName(), "/login", "/login?error");
@@ -61,7 +64,9 @@ public class SecurityContextConfigurerListener implements ContextManagerListener
 		else {
 			contextConfigurer.setLoginConfig(value.getMethod(), value.getRealmName() == null? "ediacaranRealm" : value.getRealmName(), null, null);
 		}
+		//org.apache.shiro.web.servlet.ShiroFilter
 		
+		/*
 		contextConfigurer.addFilter(
 				"ShiroFilter", 
 				"org.apache.shiro.web.servlet.ShiroFilter", 
@@ -70,6 +75,7 @@ public class SecurityContextConfigurerListener implements ContextManagerListener
 				new HashMap<String,String>(){{
 					put("configPath", "classpath:shiro.ini");
 				}});
+		*/
 		
 		registerRealm(context);
 	}
@@ -77,8 +83,8 @@ public class SecurityContextConfigurerListener implements ContextManagerListener
 	private void registerRealm(Context context) {
         JAASRealm realm = new JAASRealm();
         realm.setAppName("ediacaran");
-        realm.setUserClassNames("br.com.uoutec.community.ediacaran.security.pub.UserPrincipal");
-        realm.setRoleClassNames("br.com.uoutec.community.ediacaran.security.pub.RolePrincipal");
+        realm.setUserClassNames(UserPrincipal.class.getName());
+        realm.setRoleClassNames(RolePrincipal.class.getName());
         realm.setConfigFile("META-INF/jaas.config");
         context.setRealm(realm);
 	}
