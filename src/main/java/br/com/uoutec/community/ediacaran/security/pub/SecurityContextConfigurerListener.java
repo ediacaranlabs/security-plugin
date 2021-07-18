@@ -82,10 +82,10 @@ public class SecurityContextConfigurerListener implements ContextManagerListener
 
 	private void registerRealm(Context context) {
         JAASRealm realm = new JAASRealm();
-        realm.setAppName("ediacaran");
+        realm.setAppName("default");
         realm.setUserClassNames(UserPrincipal.class.getName());
         realm.setRoleClassNames(RolePrincipal.class.getName());
-        realm.setConfigFile("META-INF/jaas.config");
+        //realm.setConfigFile("META-INF/jaas.config");
         context.setRealm(realm);
 	}
 	
