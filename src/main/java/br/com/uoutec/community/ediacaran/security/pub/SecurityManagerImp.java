@@ -6,6 +6,7 @@ import br.com.uoutec.community.ediacaran.ContextManager;
 import br.com.uoutec.community.ediacaran.core.security.SecurityConfig;
 import br.com.uoutec.community.ediacaran.core.security.SecurityManager;
 import br.com.uoutec.community.ediacaran.core.security.jaas.Subject;
+import br.com.uoutec.community.ediacaran.security.tomcat.SecurityContextConfigurerListener;
 
 @Singleton
 public class SecurityManagerImp 

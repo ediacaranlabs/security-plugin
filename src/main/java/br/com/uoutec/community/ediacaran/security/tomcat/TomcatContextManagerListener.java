@@ -1,10 +1,10 @@
-package br.com.uoutec.community.ediacaran.security.pub;
+package br.com.uoutec.community.ediacaran.security.tomcat;
 
 import org.apache.catalina.Context;
 
 import br.com.uoutec.community.ediacaran.ContextManagerListener;
 
-public class SecurityContextManagerListener implements ContextManagerListener<Context> {
+public class TomcatContextManagerListener implements ContextManagerListener<Context> {
 
 	@Override
 	public void beforeConfigureContext(Context context) {

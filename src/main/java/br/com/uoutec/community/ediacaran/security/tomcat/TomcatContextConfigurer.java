@@ -1,4 +1,4 @@
-package br.com.uoutec.community.ediacaran.security.pub;
+package br.com.uoutec.community.ediacaran.security.tomcat;
 
 import java.util.EventListener;
 import java.util.HashMap;
@@ -17,6 +17,8 @@ import org.apache.catalina.deploy.SecurityCollection;
 import org.apache.catalina.deploy.SecurityConstraint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import br.com.uoutec.community.ediacaran.security.pub.ContextConfigurer;
 
 public class TomcatContextConfigurer implements ContextConfigurer{
 

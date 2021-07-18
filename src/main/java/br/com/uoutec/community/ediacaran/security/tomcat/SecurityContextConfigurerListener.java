@@ -1,4 +1,4 @@
-package br.com.uoutec.community.ediacaran.security.pub;
+package br.com.uoutec.community.ediacaran.security.tomcat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,6 +17,9 @@ import br.com.uoutec.community.ediacaran.core.security.Role;
 import br.com.uoutec.community.ediacaran.core.security.SecurityConfig;
 import br.com.uoutec.community.ediacaran.core.security.SecurityConstraint;
 import br.com.uoutec.community.ediacaran.core.security.jaas.RolePrincipal;
+import br.com.uoutec.community.ediacaran.security.pub.ContextConfigurer;
+import br.com.uoutec.community.ediacaran.security.pub.LoginRedirectFilter;
+import br.com.uoutec.community.ediacaran.security.pub.UserPrincipal;
 
 public class SecurityContextConfigurerListener implements ContextManagerListener<Context> {
 
