@@ -6,7 +6,7 @@ import br.com.uoutec.community.ediacaran.ContextManager;
 import br.com.uoutec.community.ediacaran.core.security.SecurityConfig;
 import br.com.uoutec.community.ediacaran.core.security.SecurityManager;
 import br.com.uoutec.community.ediacaran.core.security.jaas.Subject;
-import br.com.uoutec.community.ediacaran.security.tomcat.SecurityContextConfigurerListener;
+import br.com.uoutec.community.ediacaran.security.tomcat.ContextConfigurerListener;
 
 @Singleton
 public class SecurityManagerImp 
@@ -14,7 +14,7 @@ public class SecurityManagerImp
 
 	@Override
 	public void applySecurityConfig(SecurityConfig value, ContextManager contextManager) {
-		SecurityContextConfigurerListener ctxc = new SecurityContextConfigurerListener(value);
+		ContextConfigurerListener ctxc = new ContextConfigurerListener(value);
 		contextManager.registerListener(ctxc);
 	}
 

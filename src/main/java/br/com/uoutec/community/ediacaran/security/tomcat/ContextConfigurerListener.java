@@ -17,11 +17,10 @@ import br.com.uoutec.community.ediacaran.core.security.Role;
 import br.com.uoutec.community.ediacaran.core.security.SecurityConfig;
 import br.com.uoutec.community.ediacaran.core.security.SecurityConstraint;
 import br.com.uoutec.community.ediacaran.core.security.jaas.RolePrincipal;
-import br.com.uoutec.community.ediacaran.security.pub.ContextConfigurer;
 import br.com.uoutec.community.ediacaran.security.pub.LoginRedirectFilter;
 import br.com.uoutec.community.ediacaran.security.pub.UserPrincipal;
 
-public class SecurityContextConfigurerListener implements ContextManagerListener<Context> {
+public class ContextConfigurerListener implements ContextManagerListener<Context> {
 
 	public static final String LOGIN_PAGE = "/plugins/ediacaran/security/login";
 	
@@ -29,7 +28,7 @@ public class SecurityContextConfigurerListener implements ContextManagerListener
 	
 	private SecurityConfig securityConfig;
 	
-	public SecurityContextConfigurerListener(SecurityConfig securityConfig) {
+	public ContextConfigurerListener(SecurityConfig securityConfig) {
 		this.securityConfig = securityConfig;
 	}
 	
@@ -45,7 +44,7 @@ public class SecurityContextConfigurerListener implements ContextManagerListener
 	
 	public void applySecurityConfig(SecurityConfig value, Context context) {
 		
-		ContextConfigurer contextConfigurer = new TomcatContextConfigurer(context);
+		ContextConfigurer contextConfigurer = new ContextConfigurer(context);
 		
 		addSecurityConstraint(value.getConstraints(), contextConfigurer);
 		

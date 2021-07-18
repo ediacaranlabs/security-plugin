@@ -18,9 +18,7 @@ import org.apache.catalina.deploy.SecurityConstraint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import br.com.uoutec.community.ediacaran.security.pub.ContextConfigurer;
-
-public class TomcatContextConfigurer implements ContextConfigurer{
+public class ContextConfigurer {
 
 	private static final Logger logger = LoggerFactory.getLogger(ContextConfigurer.class);
 	
@@ -28,22 +26,19 @@ public class TomcatContextConfigurer implements ContextConfigurer{
 	
 	private Map<String, SecurityCollection> securityCollections;
 	
-	public TomcatContextConfigurer(Context context) {
+	public ContextConfigurer(Context context) {
 		this.securityCollections = new HashMap<String, SecurityCollection>();
 		this.context = context;
 	}
 	
-	@Override
 	public void addApplicationListener(String className) {
 		context.addApplicationListener(new ApplicationListener(className, false));
 	}
 
-	@Override
 	public void addApplicationListener(EventListener listener) {
 		context.setApplicationEventListeners(new Object[] {listener});
 	}
 
-	@Override
 	public void addFilter(String name, String filterClass, List<String> urls, 
 			List<String> dispatches, Map<String, String> params) {
 		
@@ -105,7 +100,6 @@ public class TomcatContextConfigurer implements ContextConfigurer{
 		logger.trace("added filter " + filterClass ); 		
 	}
 
-	@Override
 	public void addFilter(String name, Filter filter, 
 			List<String> urls, List<String> dispatches, Map<String, String> params) {
 		
@@ -169,7 +163,6 @@ public class TomcatContextConfigurer implements ContextConfigurer{
 		
 	}
 
-	@Override
 	public void addSecurityCollection(String name, String description, 
 			List<String> patterns, List<String> methods ) {
 		
@@ -206,7 +199,6 @@ public class TomcatContextConfigurer implements ContextConfigurer{
 		
 	}
 
-	@Override
 	public void addSecurityConstraint(String name, String userConstraint, List<String> rules,
 			List<String> securityCollections) {
 		
@@ -254,12 +246,10 @@ public class TomcatContextConfigurer implements ContextConfigurer{
 		logger.trace("added security constraint " + name ); 		
 	}
 
-	@Override
 	public void addRole(String value, String description) {
 		context.addSecurityRole(value);
 	}
 
-	@Override
 	public void setLoginConfig(String authMethod, String realmName, String loginPage, String errorPage) {
         context.setLoginConfig(new LoginConfig(authMethod, realmName, loginPage, errorPage));
 	}
