@@ -1,7 +1,12 @@
 package br.com.uoutec.community.ediacaran.security.pub;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.servlet.http.HttpServletRequest;
 
 import org.brandao.brutos.ResourceAction;
 import org.brandao.brutos.annotation.Intercepts;
@@ -15,15 +20,15 @@ import org.brandao.brutos.mapping.Controller;
 import org.brandao.brutos.web.WebMvcRequest;
 
 import br.com.uoutec.community.ediacaran.VarParser;
+import br.com.uoutec.community.ediacaran.core.security.RequiresPermissions;
 import br.com.uoutec.community.ediacaran.core.security.SecurityManager;
-import br.com.uoutec.community.ediacaran.plugins.PublicType;
+import br.com.uoutec.community.ediacaran.core.security.Subject;
 
 @Singleton
 @Intercepts(isDefault=false)
 @InterceptsStack(name="securityStack", isdefault=true)
 public class SecurityInterceptor 
-	extends AbstractInterceptor
-	implements PublicType {
+	extends AbstractInterceptor {
 
 	public static final String ADM_CONTEXT = "${plugins.ediacaran.front.admin_context}";
 	
@@ -36,27 +41,57 @@ public class SecurityInterceptor
 	public void intercepted(InterceptorStack stack, InterceptorHandler handler)
 			throws InterceptedException {
 		
+		Subject subject = securityManager.getSubject();
+		
+		if(subject == null || !subject.isAuthenticated()) {
+			return;
+		}
+		
 		ResourceAction resourceAction         = handler.getRequest().getResourceAction();
 		Controller controller                 = resourceAction.getController();
 		Action action                         = resourceAction.getMethodForm();
-		SecurityAccess securityAccess         = null;//securityManager.getSecurityAccess();
-		if(securityAccess == null || securityAccess.accept(action, controller, handler.getResponse(), handler.getContext())) {
+		
+		String[] requiresPermissions = getPermissions(controller, action);
+		
+		if(subject.isPermittedAll(requiresPermissions)) {
 			stack.next(handler);
 		}
 		
+		throw new SecurityException(
+			"user: " + Arrays.toString(requiresPermissions) + 
+			", resource: " + handler.getRequest().getRequestId());
+		
 	}
 
-	public boolean accept(InterceptorHandler handler) {
-		//PluginData pd     = EntityContextPlugin.getEntity(PluginData.class);
-		//String path       = pd.getPath();
-		String admContext = varParser.getValue(ADM_CONTEXT);
-		//String prefix     = path + admContext;
-		WebMvcRequest request = (WebMvcRequest) handler.getRequest();
-
-		String requestID = request.getRequestId();
+	private String[] getPermissions(Controller controller, Action action) {
 		
-		return requestID.startsWith(admContext);
-		//return requestID.startsWith(prefix);
+		RequiresPermissions requiresPermissions = null;
+		List<String> permissions = new ArrayList<String>();
+		
+		if(action != null && action.getMethod() != null){
+			requiresPermissions =
+				action.getMethod().getAnnotation(RequiresPermissions.class);
+			
+			if(requiresPermissions != null){
+				for(String e: requiresPermissions.value()) {
+					permissions.add(e);
+				}
+			}
+		}
+
+		requiresPermissions = controller.getClassType().getAnnotation(RequiresPermissions.class);
+		
+		if(requiresPermissions != null){
+			for(String e: requiresPermissions.value()) {
+				permissions.add(e);
+			}
+		}
+		
+		return permissions.toArray(new String[] {});
+	}
+	
+	public boolean accept(InterceptorHandler handler) {
+		return ((HttpServletRequest)((WebMvcRequest)handler.getRequest()).getServletRequest()).getUserPrincipal() != null;
 	}
 	
 }

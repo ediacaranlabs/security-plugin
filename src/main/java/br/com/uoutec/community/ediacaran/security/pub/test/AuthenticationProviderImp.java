@@ -8,10 +8,10 @@ import java.util.Set;
 import javax.inject.Singleton;
 
 import br.com.uoutec.community.ediacaran.core.security.AuthenticationProvider;
+import br.com.uoutec.community.ediacaran.core.security.Principal;
 import br.com.uoutec.community.ediacaran.core.security.Subject;
 import br.com.uoutec.community.ediacaran.core.security.jaas.Authentication;
 import br.com.uoutec.community.ediacaran.core.security.jaas.AuthorizationException;
-import br.com.uoutec.community.ediacaran.core.security.jaas.Principal;
 import br.com.uoutec.community.ediacaran.core.security.jaas.UsernamePasswordAuthentication;
 
 @Singleton
@@ -47,8 +47,20 @@ public class AuthenticationProviderImp
 				}
 
 				@Override
-				public Subject getSubject() {
-					return TestSubject.this;
+				@SuppressWarnings("serial")
+				public Set<String> getRoles() {
+					return new HashSet<String>() {{
+						add("manager");
+						add("user");
+					}};
+				}
+
+				@Override
+				@SuppressWarnings("serial")
+				public Set<String> getStringPermissions() {
+					return new HashSet<String>() {{
+						add("*");
+					}};
 				}
 				
 			};
@@ -114,6 +126,7 @@ public class AuthenticationProviderImp
 				UsernamePasswordAuthentication t = (UsernamePasswordAuthentication)token;
 				if(user.equals(t.getUsername()) && pass.equals(new String(t.getPassword()))) {
 					this.authenticated = true;
+					return;
 				}
 			}
 
@@ -123,22 +136,6 @@ public class AuthenticationProviderImp
 		@Override
 		public boolean isAuthenticated() {
 			return authenticated;
-		}
-
-		@Override
-		@SuppressWarnings("serial")
-		public Set<String> getRoles() {
-			return new HashSet<String>() {{
-				add("*");
-			}};
-		}
-
-		@Override
-		@SuppressWarnings("serial")
-		public Set<String> getStringPermissions() {
-			return new HashSet<String>() {{
-				add("*");
-			}};
 		}
 
 		@Override
