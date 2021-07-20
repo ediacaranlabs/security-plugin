@@ -2,11 +2,11 @@ package br.com.uoutec.community.ediacaran.security.pub;
 
 import br.com.uoutec.community.ediacaran.core.system.i18n.PluginMessageBundleUtils;
 
-public class BasicSecurityPubResourceMessages {
+public class SecurityPubResourceMessages {
 
 	public static final String RESOURCE_BUNDLE = 
 			PluginMessageBundleUtils
-				.getPluginResourceBundle(BasicSecurityPubResource.class);
+				.getPluginResourceBundle(SecurityPubResource.class);
 
 	public final class login{
 		
