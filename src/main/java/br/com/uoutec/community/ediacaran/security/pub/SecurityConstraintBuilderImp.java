@@ -33,12 +33,12 @@ public class SecurityConstraintBuilderImp
 	}
 	
 	public SecurityConstraintBuilderImp addRole(String value) {
-		securityConstraint.getRoles().add(new Role(value.toUpperCase(), null));
+		securityConstraint.getRoles().add(new Role(value, null));
 		return this;
 	}
 	
 	public SecurityConstraintBuilderImp addRole(String value, String description) {
-		securityConstraint.getRoles().add(new Role(value.toUpperCase(), description));
+		securityConstraint.getRoles().add(new Role(value, description));
 		return this;
 	}
 	
