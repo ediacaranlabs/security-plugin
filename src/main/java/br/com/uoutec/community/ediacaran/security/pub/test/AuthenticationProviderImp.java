@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Set;
 
 import javax.inject.Singleton;
+import javax.servlet.http.HttpServletRequest;
+
+import org.brandao.brutos.RequestProvider;
 
 import br.com.uoutec.community.ediacaran.core.security.AuthenticationProvider;
 import br.com.uoutec.community.ediacaran.core.security.Principal;
@@ -20,7 +23,13 @@ public class AuthenticationProviderImp
 
 	@Override
 	public Subject createSubject() {
-		return new TestSubject("teste", "teste");
+		HttpServletRequest request;
+		java.security.Principal principal;
+		if((request = (HttpServletRequest)RequestProvider.getRequest()) != null && 
+		   (principal = request.getUserPrincipal()) != null) {
+			return new TestSubject("teste", "teste", true);
+		}
+		return new TestSubject("teste", "teste", false);
 	}
 	
 	private static final class TestSubject implements Subject {
@@ -31,10 +40,10 @@ public class AuthenticationProviderImp
 		
 		private boolean authenticated;
 		
-		public TestSubject(String user, String pass) {
+		public TestSubject(String user, String pass, boolean authenticated) {
 			this.user = user;
 			this.pass = pass;
-			this.authenticated = false;
+			this.authenticated = authenticated;
 		}
 		
 		@Override

@@ -14,6 +14,7 @@ import org.brandao.brutos.annotation.Transient;
 import org.brandao.brutos.annotation.View;
 import org.brandao.brutos.annotation.web.RequestMethod;
 import org.brandao.brutos.annotation.web.RequestMethodTypes;
+import org.brandao.brutos.annotation.web.ResponseError;
 import org.brandao.brutos.annotation.web.ResponseErrors;
 import org.brandao.brutos.annotation.web.WebActionStrategyType;
 import org.brandao.brutos.web.WebFlowController;
@@ -26,6 +27,7 @@ import br.com.uoutec.pub.entity.InvalidRequestException;
 @Controller
 @ActionStrategy(WebActionStrategyType.DETACHED)
 @Action(value="/login", view=@View("/${plugins.ediacaran.security.template}/admin/login"))
+@ResponseError(rendered=false)
 public class SecurityPubResource {
 
 	@Transient
@@ -66,7 +68,7 @@ public class SecurityPubResource {
 	}
 	
 	@Action("/logout")
-	@View("/${plugins.ediacaran.security.template}/admin/logout")
+	//@View("/${plugins.ediacaran.security.template}/admin/logout")
 	public void logout(
 			@Basic(mappingType=MappingTypes.VALUE)
 			HttpServletRequest request) throws ServletException {
@@ -74,7 +76,7 @@ public class SecurityPubResource {
 			request.logout();
 		}
 		finally {
-			WebFlowController.redirectTo(varParser.getValue("${plugins.ediacaran.front.login_page}"));
+			WebFlowController.redirectTo(varParser.getValue("${plugins.ediacaran.front.admin_login_page}"));
 		}
 	}
 	
