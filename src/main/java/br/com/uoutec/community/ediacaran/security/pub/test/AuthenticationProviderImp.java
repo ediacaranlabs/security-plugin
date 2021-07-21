@@ -50,11 +50,6 @@ public class AuthenticationProviderImp
 			return new Principal() {
 
 				@Override
-				public String getName() {
-					return TestSubject.this.user;
-				}
-
-				@Override
 				@SuppressWarnings("serial")
 				public Set<String> getRoles() {
 					return new HashSet<String>() {{
@@ -69,6 +64,11 @@ public class AuthenticationProviderImp
 					return new HashSet<String>() {{
 						add("*");
 					}};
+				}
+
+				@Override
+				public Object getUserPrincipal() {
+					return TestSubject.this.user;
 				}
 				
 			};
