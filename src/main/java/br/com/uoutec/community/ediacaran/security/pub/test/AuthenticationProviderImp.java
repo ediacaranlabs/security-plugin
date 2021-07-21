@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.brandao.brutos.RequestProvider;
 
 import br.com.uoutec.community.ediacaran.core.security.AuthenticationProvider;
+import br.com.uoutec.community.ediacaran.core.security.AuthorizationException;
 import br.com.uoutec.community.ediacaran.core.security.Principal;
 import br.com.uoutec.community.ediacaran.core.security.Subject;
 import br.com.uoutec.community.ediacaran.core.security.jaas.Authentication;
-import br.com.uoutec.community.ediacaran.core.security.jaas.AuthorizationException;
 import br.com.uoutec.community.ediacaran.core.security.jaas.UsernamePasswordAuthentication;
 
 @Singleton
