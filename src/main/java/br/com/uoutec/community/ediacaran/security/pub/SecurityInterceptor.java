@@ -44,7 +44,8 @@ public class SecurityInterceptor
 		Subject subject = securityManager.getSubject();
 		
 		if(subject == null || !subject.isAuthenticated()) {
-			return;
+			throw new SecurityException(
+					"resource: " + handler.getRequest().getRequestId());
 		}
 		
 		ResourceAction resourceAction         = handler.getRequest().getResourceAction();
@@ -58,7 +59,7 @@ public class SecurityInterceptor
 		}
 		else {
 			throw new SecurityException(
-				"user: " + Arrays.toString(requiresPermissions) + 
+				"permissions: " + Arrays.toString(requiresPermissions) + 
 				", resource: " + handler.getRequest().getRequestId());
 		}
 		
