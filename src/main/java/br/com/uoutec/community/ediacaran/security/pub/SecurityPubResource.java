@@ -10,6 +10,7 @@ import org.brandao.brutos.annotation.Basic;
 import org.brandao.brutos.annotation.Controller;
 import org.brandao.brutos.annotation.MappingTypes;
 import org.brandao.brutos.annotation.Result;
+import org.brandao.brutos.annotation.ScopeType;
 import org.brandao.brutos.annotation.Transient;
 import org.brandao.brutos.annotation.View;
 import org.brandao.brutos.annotation.web.RequestMethod;
@@ -46,6 +47,8 @@ public class SecurityPubResource {
 			String password,
 			@Basic(bean="redirectTo")
 			String redirectTo,
+			@Basic(bean="referer", scope=ScopeType.HEADER)
+			String referer,
 			@Basic(mappingType=MappingTypes.VALUE)
 			HttpServletRequest request) throws InvalidRequestException {
 		
@@ -62,9 +65,7 @@ public class SecurityPubResource {
 		}
 		
 
-		String referrer = request.getHeader("referer");
-		
-		return redirectTo == null? referrer : redirectTo;
+		return redirectTo == null? referer : redirectTo;
 	}
 	
 	@Action("/logout")
