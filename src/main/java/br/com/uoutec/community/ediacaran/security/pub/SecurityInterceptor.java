@@ -56,10 +56,11 @@ public class SecurityInterceptor
 		if(subject.isPermittedAll(requiresPermissions)) {
 			stack.next(handler);
 		}
-		
-		throw new SecurityException(
-			"user: " + Arrays.toString(requiresPermissions) + 
-			", resource: " + handler.getRequest().getRequestId());
+		else {
+			throw new SecurityException(
+				"user: " + Arrays.toString(requiresPermissions) + 
+				", resource: " + handler.getRequest().getRequestId());
+		}
 		
 	}
 
