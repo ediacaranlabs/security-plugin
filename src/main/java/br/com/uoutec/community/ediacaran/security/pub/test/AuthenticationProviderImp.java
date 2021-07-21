@@ -24,9 +24,8 @@ public class AuthenticationProviderImp
 	@Override
 	public Subject createSubject() {
 		HttpServletRequest request;
-		java.security.Principal principal;
 		if((request = (HttpServletRequest)RequestProvider.getRequest()) != null && 
-		   (principal = request.getUserPrincipal()) != null) {
+		   request.getUserPrincipal() != null) {
 			return new TestSubject("teste", "teste", true);
 		}
 		return new TestSubject("teste", "teste", false);
