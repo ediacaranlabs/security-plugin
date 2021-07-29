@@ -1,10 +1,10 @@
 package br.com.uoutec.community.ediacaran.security;
 
+import br.com.uoutec.community.ediacaran.AbstractPlugin;
 import br.com.uoutec.community.ediacaran.plugins.EntityContextPlugin;
 import br.com.uoutec.community.ediacaran.security.pub.SecurityManagerPlugin;
-import br.com.uoutec.community.ediacaran.system.AbstractWebPluginInstaller;
 
-public class PluginInstaller extends AbstractWebPluginInstaller{
+public class PluginInstaller extends AbstractPlugin{
 	
 	public void install() throws Throwable{
 		
@@ -17,7 +17,11 @@ public class PluginInstaller extends AbstractWebPluginInstaller{
 			.addConstraint("/admin/*")
 				.addRole("user")
 			.form("/login", "/login?error=true");
+	}
+
+	@Override
+	public void uninstall() throws Throwable {
+		// TODO Auto-generated method stub
 		
-		super.install();
 	}	
 }
