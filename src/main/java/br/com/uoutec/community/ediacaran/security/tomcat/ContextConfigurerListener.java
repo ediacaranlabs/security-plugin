@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import javax.inject.Singleton;
+
 import org.apache.catalina.Context;
 import org.apache.catalina.realm.JAASRealm;
 
@@ -25,6 +27,7 @@ import br.com.uoutec.community.ediacaran.plugins.EntityContextPlugin;
 import br.com.uoutec.community.ediacaran.security.pub.LoginRedirectFilter;
 import br.com.uoutec.community.ediacaran.security.pub.SecurityConfig;
 
+@Singleton
 public class ContextConfigurerListener implements EdiacaranEventListener{
 
 	public static final String LOGIN_PAGE = "/plugins/ediacaran/security/login";
