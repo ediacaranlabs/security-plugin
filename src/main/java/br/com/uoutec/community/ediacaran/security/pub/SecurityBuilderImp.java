@@ -1,9 +1,9 @@
 package br.com.uoutec.community.ediacaran.security.pub;
 
-import br.com.uoutec.community.ediacaran.core.security.SecurityConfig;
 import br.com.uoutec.community.ediacaran.core.security.SecurityConstraint;
 
-public class SecurityBuilderImp implements SecurityBuilder{
+public class SecurityBuilderImp 
+	implements SecurityBuilder{
 
 	private SecurityConfig securityConfig;
 	

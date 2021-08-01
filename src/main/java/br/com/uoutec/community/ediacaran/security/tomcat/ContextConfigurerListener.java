@@ -15,15 +15,15 @@ import org.apache.catalina.realm.JAASRealm;
 import br.com.uoutec.community.ediacaran.ContextManager;
 import br.com.uoutec.community.ediacaran.EdiacaranEventListener;
 import br.com.uoutec.community.ediacaran.EdiacaranEventObject;
+import br.com.uoutec.community.ediacaran.core.security.AbstractSecurityCallback;
 import br.com.uoutec.community.ediacaran.core.security.Role;
-import br.com.uoutec.community.ediacaran.core.security.SecurityConfig;
 import br.com.uoutec.community.ediacaran.core.security.SecurityConstraint;
+import br.com.uoutec.community.ediacaran.core.security.SecurityManagerPlugin;
 import br.com.uoutec.community.ediacaran.core.security.jaas.RolePrincipal;
 import br.com.uoutec.community.ediacaran.core.security.jaas.UserPrincipal;
 import br.com.uoutec.community.ediacaran.plugins.EntityContextPlugin;
-import br.com.uoutec.community.ediacaran.security.pub.AbstractSecurityCallback;
 import br.com.uoutec.community.ediacaran.security.pub.LoginRedirectFilter;
-import br.com.uoutec.community.ediacaran.security.pub.SecurityManagerPlugin;
+import br.com.uoutec.community.ediacaran.security.pub.SecurityConfig;
 
 public class ContextConfigurerListener implements EdiacaranEventListener{
 
@@ -47,8 +47,8 @@ public class ContextConfigurerListener implements EdiacaranEventListener{
 				smp.applySecurityConfig(new AbstractSecurityCallback() {
 					
 					@Override
-					public void applySecurityConfig(SecurityConfig value) {
-						ContextConfigurerListener.this.applySecurityConfig(value, ctx);
+					public void applySecurityConfig(Object value) {
+						ContextConfigurerListener.this.applySecurityConfig((SecurityConfig)value, ctx);
 					}
 					
 				});
@@ -60,8 +60,8 @@ public class ContextConfigurerListener implements EdiacaranEventListener{
 				smp.applySecurityConfig(new AbstractSecurityCallback() {
 					
 					@Override
-					public void destroySecurityConfig(SecurityConfig value) {
-						ContextConfigurerListener.this.applySecurityConfig(value, ctx);
+					public void destroySecurityConfig(Object value) {
+						ContextConfigurerListener.this.applySecurityConfig((SecurityConfig)value, ctx);
 					}
 					
 				});

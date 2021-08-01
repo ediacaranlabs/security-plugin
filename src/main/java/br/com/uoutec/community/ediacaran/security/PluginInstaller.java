@@ -2,15 +2,16 @@ package br.com.uoutec.community.ediacaran.security;
 
 import br.com.uoutec.community.ediacaran.AbstractPlugin;
 import br.com.uoutec.community.ediacaran.plugins.EntityContextPlugin;
-import br.com.uoutec.community.ediacaran.security.pub.SecurityManagerPlugin;
+import br.com.uoutec.community.ediacaran.security.pub.WebSecurityManagerPlugin;
 
 public class PluginInstaller extends AbstractPlugin{
 	
 	public void install() throws Throwable{
 		
-		SecurityManagerPlugin smp = EntityContextPlugin.getEntity(SecurityManagerPlugin.class);
+		WebSecurityManagerPlugin webSecurityManagerPlugin = 
+					EntityContextPlugin.getEntity(WebSecurityManagerPlugin.class);
 		
-		smp
+		webSecurityManagerPlugin
 			.addConstraint("/admin/manager/*")
 				.addRole("manager")
 				.addRole("user")
