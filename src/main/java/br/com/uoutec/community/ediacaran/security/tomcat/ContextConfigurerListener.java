@@ -12,34 +12,62 @@ import java.util.Set;
 import org.apache.catalina.Context;
 import org.apache.catalina.realm.JAASRealm;
 
-import br.com.uoutec.community.ediacaran.ContextManagerListener;
+import br.com.uoutec.community.ediacaran.ContextManager;
+import br.com.uoutec.community.ediacaran.EdiacaranEventListener;
+import br.com.uoutec.community.ediacaran.EdiacaranEventObject;
 import br.com.uoutec.community.ediacaran.core.security.Role;
 import br.com.uoutec.community.ediacaran.core.security.SecurityConfig;
 import br.com.uoutec.community.ediacaran.core.security.SecurityConstraint;
 import br.com.uoutec.community.ediacaran.core.security.jaas.RolePrincipal;
 import br.com.uoutec.community.ediacaran.core.security.jaas.UserPrincipal;
+import br.com.uoutec.community.ediacaran.plugins.EntityContextPlugin;
+import br.com.uoutec.community.ediacaran.security.pub.AbstractSecurityCallback;
 import br.com.uoutec.community.ediacaran.security.pub.LoginRedirectFilter;
+import br.com.uoutec.community.ediacaran.security.pub.SecurityManagerPlugin;
 
-public class ContextConfigurerListener implements ContextManagerListener<Context> {
+public class ContextConfigurerListener implements EdiacaranEventListener{
 
 	public static final String LOGIN_PAGE = "/plugins/ediacaran/security/login";
 	
 	public static final String LOGOUT_PAGE = "/plugins/ediacaran/security/logout";
 	
-	private SecurityConfig securityConfig;
-	
-	public ContextConfigurerListener(SecurityConfig securityConfig) {
-		this.securityConfig = securityConfig;
-	}
-	
-	@Override
-	public void beforeConfigureContext(Context context) {
-		
+	public ContextConfigurerListener() {
 	}
 
 	@Override
-	public void afterConfigureContext(Context context) {
-		applySecurityConfig(securityConfig, context);
+	public void onEvent(EdiacaranEventObject event) {
+		
+		if(event.getSource() instanceof ContextManager) {
+			
+			final Context ctx = (Context)event.getData();
+			final SecurityManagerPlugin smp = EntityContextPlugin.getEntity(SecurityManagerPlugin.class);
+			
+			if("context.initializing".equals(event.getType())) {
+				
+				smp.applySecurityConfig(new AbstractSecurityCallback() {
+					
+					@Override
+					public void applySecurityConfig(SecurityConfig value) {
+						ContextConfigurerListener.this.applySecurityConfig(value, ctx);
+					}
+					
+				});
+				
+			}
+			else
+			if("context.destroying".equals(event.getType())) {
+
+				smp.applySecurityConfig(new AbstractSecurityCallback() {
+					
+					@Override
+					public void destroySecurityConfig(SecurityConfig value) {
+						ContextConfigurerListener.this.applySecurityConfig(value, ctx);
+					}
+					
+				});
+				
+			}
+		}
 	}
 	
 	public void applySecurityConfig(SecurityConfig value, Context context) {
@@ -49,8 +77,6 @@ public class ContextConfigurerListener implements ContextManagerListener<Context
 		addSecurityConstraint(value.getConstraints(), contextConfigurer);
 		
 		addRoles(value, contextConfigurer);
-		
-		//contextConfigurer.addApplicationListener("org.apache.shiro.web.env.EnvironmentLoaderListener");
 		
 		if(value.getLoginPage() != null) {
 			contextConfigurer.setLoginConfig(value.getMethod(), value.getRealmName() == null? "ediacaranRealm" : value.getRealmName(), "/login", "/login?error");
@@ -66,28 +92,19 @@ public class ContextConfigurerListener implements ContextManagerListener<Context
 		else {
 			contextConfigurer.setLoginConfig(value.getMethod(), value.getRealmName() == null? "ediacaranRealm" : value.getRealmName(), null, null);
 		}
-		//org.apache.shiro.web.servlet.ShiroFilter
-		
-		/*
-		contextConfigurer.addFilter(
-				"ShiroFilter", 
-				"org.apache.shiro.web.servlet.ShiroFilter", 
-				Arrays.asList("/*"), 
-				Arrays.asList("REQUEST", "FORWARD", "INCLUDE", "ERROR"),
-				new HashMap<String,String>(){{
-					put("configPath", "classpath:shiro.ini");
-				}});
-		*/
 		
 		registerRealm(context);
 	}
 
+	public void destroySecurityConfig(SecurityConfig value, Context context) {
+		
+	}
+	
 	private void registerRealm(Context context) {
         JAASRealm realm = new JAASRealm();
         realm.setAppName("default");
         realm.setUserClassNames(UserPrincipal.class.getName());
         realm.setRoleClassNames(RolePrincipal.class.getName());
-        //realm.setConfigFile("META-INF/jaas.config");
         context.setRealm(realm);
 	}
 	

@@ -14,7 +14,15 @@ public class SecurityManagerPluginImp
 
 	@Inject
 	public SecurityManagerPluginImp(SecurityManager securityManager, ContextManager contextManager) {
-		super(new SecurityConfig(), securityManager, contextManager);
+		super(new SecurityConfig());
 	}
 
+	public void applySecurityConfig(SecurityCallback callback) {
+		callback.applySecurityConfig(getSecurityConfig());
+	}
+	
+	public void destroySecurityConfig(SecurityCallback callback) {
+		callback.destroySecurityConfig(getSecurityConfig());
+	}
+	
 }

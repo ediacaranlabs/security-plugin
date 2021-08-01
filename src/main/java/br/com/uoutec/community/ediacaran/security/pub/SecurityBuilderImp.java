@@ -1,28 +1,22 @@
 package br.com.uoutec.community.ediacaran.security.pub;
 
-import br.com.uoutec.community.ediacaran.ContextManager;
 import br.com.uoutec.community.ediacaran.core.security.SecurityConfig;
 import br.com.uoutec.community.ediacaran.core.security.SecurityConstraint;
-import br.com.uoutec.community.ediacaran.core.security.SecurityManager;
 
 public class SecurityBuilderImp implements SecurityBuilder{
 
 	private SecurityConfig securityConfig;
 	
-	private SecurityManager securityManager;
-	
-	private ContextManager contextManager;
-
 	public SecurityBuilderImp(SecurityBuilderImp builder) {
 		this.securityConfig = builder.securityConfig;
-		this.securityManager = builder.securityManager;
-		this.contextManager = builder.contextManager;
 	}
 	
-	public SecurityBuilderImp(SecurityConfig value, SecurityManager securityManager, ContextManager contextManager) {
+	public SecurityBuilderImp(SecurityConfig value) {
 		this.securityConfig = value;
-		this.securityManager = securityManager;
-		this.contextManager = contextManager;
+	}
+	
+	protected SecurityConfig getSecurityConfig() {
+		return securityConfig;
 	}
 	
 	public SecurityConstraintBuilder addConstraint(String value) {
@@ -38,30 +32,25 @@ public class SecurityBuilderImp implements SecurityBuilder{
 	
 	public void basic() {
 		securityConfig.setMethod(BASIC);
-		securityManager.applySecurityConfig(securityConfig, contextManager);
 	}
 	
 	public void digest() {
 		securityConfig.setMethod(DIGEST);
-		securityManager.applySecurityConfig(securityConfig, contextManager);
 	}
 	
 	public void cert() {
 		securityConfig.setMethod(CERT);
-		securityManager.applySecurityConfig(securityConfig, contextManager);
 	}
 	
 	public void form(String loginPage) {
 		securityConfig.setMethod(FORM);
 		securityConfig.setLoginPage(loginPage);
-		securityManager.applySecurityConfig(securityConfig, contextManager);
 	}
 	
 	public void form(String loginPage, String errorPage) {
 		securityConfig.setMethod(FORM);
 		securityConfig.setLoginPage(loginPage);
 		securityConfig.setErrorPage(errorPage);
-		securityManager.applySecurityConfig(securityConfig, contextManager);
 	}
 	
 }

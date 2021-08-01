@@ -6,16 +6,12 @@ import javax.inject.Singleton;
 import org.brandao.brutos.RequestProvider;
 import org.brandao.brutos.web.WebMvcRequest;
 
-import br.com.uoutec.community.ediacaran.ContextManager;
 import br.com.uoutec.community.ediacaran.core.security.AuthenticationException;
 import br.com.uoutec.community.ediacaran.core.security.AuthenticationProvider;
 import br.com.uoutec.community.ediacaran.core.security.Principal;
-import br.com.uoutec.community.ediacaran.core.security.SecurityConfig;
 import br.com.uoutec.community.ediacaran.core.security.SecurityManager;
 import br.com.uoutec.community.ediacaran.core.security.Subject;
 import br.com.uoutec.community.ediacaran.plugins.PublicBean;
-import br.com.uoutec.community.ediacaran.security.tomcat.ContextConfigurerListener;
-
 @Singleton
 public class SecurityManagerImp 
 	implements SecurityManager{
@@ -23,21 +19,12 @@ public class SecurityManagerImp
 	private AuthenticationProviderRepository authenticationProviderRepository;
 	
 	@Inject
-	public SecurityManagerImp(AuthenticationProviderRepository authenticationProviderRepository) {
+	public SecurityManagerImp(
+			AuthenticationProviderRepository authenticationProviderRepository) {
 		this.authenticationProviderRepository = authenticationProviderRepository;
 	}
 	
-	@Override
-	public void applySecurityConfig(SecurityConfig value, ContextManager contextManager) {
-		ContextConfigurerListener ctxc = new ContextConfigurerListener(value);
-		contextManager.registerListener(ctxc);
-	}
-
-	@Override
-	public void destroySecurityConfig(ContextManager contextManager) {
-		contextManager.unregisterListeners();
-	}
-
+	
 	@Override
 	public Subject getSubject() {
 		
