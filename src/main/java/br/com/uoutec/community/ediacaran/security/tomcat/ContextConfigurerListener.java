@@ -45,6 +45,10 @@ public class ContextConfigurerListener implements EdiacaranEventListener{
 			final Context ctx = (Context)event.getData();
 			final WebSecurityManagerPlugin smp = EntityContextPlugin.getEntity(WebSecurityManagerPlugin.class);
 			
+			if(smp == null) {
+				return;
+			}
+			
 			if("initializing".equals(event.getType())) {
 				
 				smp.applySecurityConfig(new AbstractSecurityCallback() {
