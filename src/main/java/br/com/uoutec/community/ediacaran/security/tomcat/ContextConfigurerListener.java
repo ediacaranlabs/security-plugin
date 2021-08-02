@@ -20,12 +20,12 @@ import br.com.uoutec.community.ediacaran.EdiacaranEventObject;
 import br.com.uoutec.community.ediacaran.core.security.AbstractSecurityCallback;
 import br.com.uoutec.community.ediacaran.core.security.Role;
 import br.com.uoutec.community.ediacaran.core.security.SecurityConstraint;
-import br.com.uoutec.community.ediacaran.core.security.SecurityManagerPlugin;
 import br.com.uoutec.community.ediacaran.core.security.jaas.RolePrincipal;
 import br.com.uoutec.community.ediacaran.core.security.jaas.UserPrincipal;
 import br.com.uoutec.community.ediacaran.plugins.EntityContextPlugin;
 import br.com.uoutec.community.ediacaran.security.pub.LoginRedirectFilter;
 import br.com.uoutec.community.ediacaran.security.pub.SecurityConfig;
+import br.com.uoutec.community.ediacaran.security.pub.WebSecurityManagerPlugin;
 
 @Singleton
 public class ContextConfigurerListener implements EdiacaranEventListener{
@@ -43,9 +43,9 @@ public class ContextConfigurerListener implements EdiacaranEventListener{
 		if(event.getSource() instanceof ContextManager) {
 			
 			final Context ctx = (Context)event.getData();
-			final SecurityManagerPlugin smp = EntityContextPlugin.getEntity(SecurityManagerPlugin.class);
+			final WebSecurityManagerPlugin smp = EntityContextPlugin.getEntity(WebSecurityManagerPlugin.class);
 			
-			if("context.initializing".equals(event.getType())) {
+			if("initializing".equals(event.getType())) {
 				
 				smp.applySecurityConfig(new AbstractSecurityCallback() {
 					
@@ -58,7 +58,7 @@ public class ContextConfigurerListener implements EdiacaranEventListener{
 				
 			}
 			else
-			if("context.destroying".equals(event.getType())) {
+			if("destroying".equals(event.getType())) {
 
 				smp.applySecurityConfig(new AbstractSecurityCallback() {
 					
@@ -74,6 +74,10 @@ public class ContextConfigurerListener implements EdiacaranEventListener{
 	}
 	
 	public void applySecurityConfig(SecurityConfig value, Context context) {
+		
+		if(value.getMethod() == null) {
+			return;
+		}
 		
 		ContextConfigurer contextConfigurer = new ContextConfigurer(context);
 		

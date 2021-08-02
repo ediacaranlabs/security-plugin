@@ -1,7 +1,10 @@
 package br.com.uoutec.community.ediacaran.security.pub;
 
+import javax.inject.Singleton;
+
 import br.com.uoutec.community.ediacaran.core.security.AbstractSecurityManagerPlugin;
 
+@Singleton
 public class WebSecurityManagerPlugin 
 	extends AbstractSecurityManagerPlugin
 	implements SecurityBuilder{
