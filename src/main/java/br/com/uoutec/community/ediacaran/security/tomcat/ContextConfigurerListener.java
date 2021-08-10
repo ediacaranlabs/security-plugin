@@ -40,7 +40,7 @@ public class ContextConfigurerListener implements EdiacaranEventListener{
 	@Override
 	public void onEvent(EdiacaranEventObject event) {
 		
-		if(event.getSource() instanceof ContextManager) {
+		if(event.getSource() instanceof ContextManager && event.getData() instanceof Context) {
 			
 			final Context ctx = (Context)event.getData();
 			final WebSecurityManagerPlugin smp = EntityContextPlugin.getEntity(WebSecurityManagerPlugin.class);
