@@ -1,5 +1,7 @@
 package br.com.uoutec.community.ediacaran.security.pub;
 
+import java.util.Locale;
+
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +24,7 @@ import org.brandao.brutos.web.WebFlowController;
 
 import br.com.uoutec.community.ediacaran.VarParser;
 import br.com.uoutec.community.ediacaran.core.system.i18n.PluginMessageBundleUtils;
-import br.com.uoutec.i18n.MessageLocale;
+import br.com.uoutec.community.ediacaran.web.EdiacaranWebInvoker;
 import br.com.uoutec.pub.entity.InvalidRequestException;
 
 @Controller
@@ -50,7 +52,9 @@ public class SecurityPubResource {
 			@Basic(bean="referer", scope=ScopeType.HEADER)
 			String referer,
 			@Basic(mappingType=MappingTypes.VALUE)
-			HttpServletRequest request) throws InvalidRequestException {
+			HttpServletRequest request,			
+			@Basic(bean=EdiacaranWebInvoker.LOCALE_VAR, scope=ScopeType.REQUEST, mappingType=MappingTypes.VALUE)
+			Locale locale) throws InvalidRequestException {
 		
 		try{
 			request.login(username, password);
@@ -60,7 +64,7 @@ public class SecurityPubResource {
 					.getMessageResourceString(
 							SecurityPubResourceMessages.RESOURCE_BUNDLE,
 							SecurityPubResourceMessages.login.error.invalid_data, 
-							MessageLocale.getLocale());
+							locale);
 			throw new InvalidRequestException(error, ex);
 		}
 		
