@@ -117,6 +117,16 @@ public class AuthenticationProviderImp
 		}
 
 		@Override
+		public boolean[] hasRoles(String... roleIdentifiers) {
+			boolean[] r = new boolean[roleIdentifiers.length];
+			
+			for(int i=0;i<r.length;i++) {
+				r[i] = true;
+			}
+			return r;
+		}
+		
+		@Override
 		public void checkRole(String roleIdentifier) throws AuthorizationException {
 		}
 

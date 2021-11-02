@@ -21,7 +21,7 @@ import org.brandao.brutos.web.WebMvcRequest;
 
 import br.com.uoutec.community.ediacaran.VarParser;
 import br.com.uoutec.community.ediacaran.core.security.RequiresPermissions;
-import br.com.uoutec.community.ediacaran.core.security.SecurityManager;
+import br.com.uoutec.community.ediacaran.core.security.AuthorizationManager;
 import br.com.uoutec.community.ediacaran.core.security.Subject;
 
 @Singleton
@@ -33,7 +33,7 @@ public class SecurityInterceptor
 	public static final String ADM_CONTEXT = "${plugins.ediacaran.front.admin_context}";
 	
 	@Inject
-	private SecurityManager securityManager;
+	private AuthorizationManager securityManager;
 	
 	@Inject
 	protected VarParser varParser;
