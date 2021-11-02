@@ -1,8 +1,6 @@
 package br.com.uoutec.community.ediacaran.security.pub.test;
 
-import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.inject.Singleton;
@@ -10,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.brandao.brutos.RequestProvider;
 
+import br.com.uoutec.community.ediacaran.core.security.AbstractSubject;
 import br.com.uoutec.community.ediacaran.core.security.AuthenticationProvider;
 import br.com.uoutec.community.ediacaran.core.security.AuthorizationException;
 import br.com.uoutec.community.ediacaran.core.security.Principal;
@@ -31,7 +30,7 @@ public class AuthenticationProviderImp
 		return new TestSubject("teste", "teste", false);
 	}
 	
-	private static final class TestSubject implements Subject {
+	private static final class TestSubject extends AbstractSubject {
 
 		private String user;
 		
@@ -74,6 +73,7 @@ public class AuthenticationProviderImp
 			};
 		}
 
+		/*
 		@Override
 		public boolean isPermitted(String permission) {
 			return true;
@@ -137,7 +137,7 @@ public class AuthenticationProviderImp
 		@Override
 		public void checkRoles(String... roleIdentifiers) throws AuthorizationException {
 		}
-
+		 */
 		@Override
 		public void login(Authentication token) throws AuthorizationException {
 			if(token instanceof UsernamePasswordAuthentication) {
