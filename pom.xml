@@ -17,8 +17,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.3.2</version>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>1.8</source>
+					<target>1.8</target>
 					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
@@ -33,6 +33,20 @@
 			<version>7.0</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- uoutec -->
+ 		<dependency>
+			<groupId>br.com.uoutec</groupId>
+			<artifactId>application</artifactId>
+			<version>1.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- ediacaran -->
+		<dependency>
+			<groupId>br.com.uoutec</groupId>
+			<artifactId>ediacaran</artifactId>
+			<version>1.0.0</version>
+			<scope>provided</scope>
+		</dependency>
 		<!-- plugins -->
 		<dependency>
 			<groupId>br.com.uoutec</groupId>
@@ -45,16 +59,11 @@
 	        <groupId>javax.security.enterprise</groupId>
 	        <artifactId>javax.security.enterprise-api</artifactId>
 	        <version>1.0</version>
+			<scope>provided</scope>
 	    </dependency>
 		<dependency>
 			<groupId>br.com.uoutec</groupId>
 			<artifactId>security-ediacaran-core-plugin</artifactId>
-			<version>1.0.0</version>
-		</dependency>
-		<!-- ediacaran -->
-		<dependency>
-			<groupId>br.com.uoutec</groupId>
-			<artifactId>ediacaran</artifactId>
 			<version>1.0.0</version>
 			<scope>provided</scope>
 		</dependency>
