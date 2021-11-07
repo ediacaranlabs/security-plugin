@@ -1,0 +1,14 @@
+[
+	{
+		name: "teste",
+		password: "teste",
+		roles: ["user"],
+		stringPermissions: null
+	},
+	{
+		name: "admin",
+		password: "admin",
+		roles: ["manager","user"],
+		stringPermissions: ["*"]
+	}
+]
