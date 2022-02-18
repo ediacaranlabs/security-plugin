@@ -9,12 +9,11 @@ import java.util.Map.Entry;
 import javax.servlet.Filter;
 
 import org.apache.catalina.Context;
-import org.apache.catalina.deploy.ApplicationListener;
-import org.apache.catalina.deploy.FilterDef;
-import org.apache.catalina.deploy.FilterMap;
-import org.apache.catalina.deploy.LoginConfig;
-import org.apache.catalina.deploy.SecurityCollection;
-import org.apache.catalina.deploy.SecurityConstraint;
+import org.apache.tomcat.util.descriptor.web.FilterDef;
+import org.apache.tomcat.util.descriptor.web.FilterMap;
+import org.apache.tomcat.util.descriptor.web.LoginConfig;
+import org.apache.tomcat.util.descriptor.web.SecurityCollection;
+import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,7 +31,8 @@ public class ContextConfigurer {
 	}
 	
 	public void addApplicationListener(String className) {
-		context.addApplicationListener(new ApplicationListener(className, false));
+		//context.addApplicationListener(new ApplicationListener(className, false));
+		context.addApplicationListener(className);
 	}
 
 	public void addApplicationListener(EventListener listener) {
