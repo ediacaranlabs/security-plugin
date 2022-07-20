@@ -23,7 +23,7 @@ import org.brandao.brutos.annotation.web.WebActionStrategyType;
 import org.brandao.brutos.web.WebFlowController;
 
 import br.com.uoutec.community.ediacaran.VarParser;
-import br.com.uoutec.community.ediacaran.core.system.i18n.PluginMessageBundleUtils;
+import br.com.uoutec.community.ediacaran.core.system.i18n.PluginLanguageUtils;
 import br.com.uoutec.community.ediacaran.web.EdiacaranWebInvoker;
 import br.com.uoutec.pub.entity.InvalidRequestException;
 
@@ -60,7 +60,7 @@ public class SecurityPubResource {
 			request.login(username, password);
 		}
 		catch(Throwable ex){
-			String error = PluginMessageBundleUtils
+			String error = PluginLanguageUtils
 					.getMessageResourceString(
 							SecurityPubResourceMessages.RESOURCE_BUNDLE,
 							SecurityPubResourceMessages.login.error.invalid_data, 
