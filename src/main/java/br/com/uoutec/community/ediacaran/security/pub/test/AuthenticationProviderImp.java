@@ -10,6 +10,7 @@ import org.brandao.brutos.RequestProvider;
 
 import br.com.uoutec.community.ediacaran.core.security.AbstractSubject;
 import br.com.uoutec.community.ediacaran.core.security.AuthenticationProvider;
+import br.com.uoutec.community.ediacaran.core.security.Authorization;
 import br.com.uoutec.community.ediacaran.core.security.AuthorizationException;
 import br.com.uoutec.community.ediacaran.core.security.Principal;
 import br.com.uoutec.community.ediacaran.core.security.Subject;
@@ -68,6 +69,14 @@ public class AuthenticationProviderImp
 				@Override
 				public Object getUserPrincipal() {
 					return TestSubject.this.user;
+				}
+
+				@Override
+				@SuppressWarnings("serial")
+				public Set<Authorization> getPermissions() {
+					return new HashSet<Authorization>() {{
+						add(new Authorization("*", null, null));
+					}};
 				}
 				
 			};

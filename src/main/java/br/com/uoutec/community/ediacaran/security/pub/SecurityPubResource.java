@@ -59,6 +59,16 @@ public class SecurityPubResource {
 		try{
 			request.login(username, password);
 		}
+		catch(ServletException ex){
+			if(!"This request has already been authenticated".equals(ex.getMessage())) {
+				String error = PluginLanguageUtils
+						.getMessageResourceString(
+								SecurityPubResourceMessages.RESOURCE_BUNDLE,
+								SecurityPubResourceMessages.login.error.invalid_data, 
+								locale);
+				throw new InvalidRequestException(error, ex);
+			}
+		}
 		catch(Throwable ex){
 			String error = PluginLanguageUtils
 					.getMessageResourceString(

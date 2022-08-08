@@ -246,7 +246,7 @@ public class ContextConfigurer {
 		logger.trace("added security constraint " + name ); 		
 	}
 
-	public void addRole(String value, String description) {
+	public void addRole(String value) {
 		context.addSecurityRole(value);
 	}
 

@@ -21,6 +21,7 @@ import com.google.gson.reflect.TypeToken;
 import br.com.uoutec.community.ediacaran.core.security.AuthenticationProvider;
 import br.com.uoutec.community.ediacaran.core.security.AuthorizationException;
 import br.com.uoutec.community.ediacaran.core.security.Principal;
+import br.com.uoutec.community.ediacaran.core.security.SecurityRegistry;
 import br.com.uoutec.community.ediacaran.core.security.Subject;
 import br.com.uoutec.community.ediacaran.core.security.jaas.Authentication;
 import br.com.uoutec.community.ediacaran.core.security.jaas.UsernamePasswordAuthentication;
@@ -48,6 +49,9 @@ public class FileAuthenticationProvider
 	
 	private PluginType pluginType;
 
+	@Inject
+	private SecurityRegistry securityRegistry;
+	
 	public FileAuthenticationProvider() {
 	}
 	
@@ -118,6 +122,7 @@ public class FileAuthenticationProvider
 		}
 		
 		for(FileUser e: data) {
+			e.setPermissions(securityRegistry.toAuthorization(e.getStringPermissions()));
 			usersMap.put(e.getName(), e);
 		}
 		

@@ -1,6 +1,5 @@
 package br.com.uoutec.community.ediacaran.security.pub;
 
-import br.com.uoutec.community.ediacaran.core.security.Role;
 import br.com.uoutec.community.ediacaran.core.security.SecurityConstraint;
 
 public class SecurityConstraintBuilderImp 
@@ -33,12 +32,7 @@ public class SecurityConstraintBuilderImp
 	}
 	
 	public SecurityConstraintBuilderImp addRole(String value) {
-		securityConstraint.getRoles().add(new Role(value, null));
-		return this;
-	}
-	
-	public SecurityConstraintBuilderImp addRole(String value, String description) {
-		securityConstraint.getRoles().add(new Role(value, description));
+		securityConstraint.getRoles().add(value);
 		return this;
 	}
 	

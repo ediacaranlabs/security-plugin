@@ -18,7 +18,6 @@ import br.com.uoutec.community.ediacaran.ContextManager;
 import br.com.uoutec.community.ediacaran.EdiacaranEventListener;
 import br.com.uoutec.community.ediacaran.EdiacaranEventObject;
 import br.com.uoutec.community.ediacaran.core.security.AbstractSecurityCallback;
-import br.com.uoutec.community.ediacaran.core.security.Role;
 import br.com.uoutec.community.ediacaran.core.security.SecurityConstraint;
 import br.com.uoutec.community.ediacaran.core.security.jaas.RolePrincipal;
 import br.com.uoutec.community.ediacaran.core.security.jaas.UserPrincipal;
@@ -121,9 +120,9 @@ public class ContextConfigurerListener implements EdiacaranEventListener{
 	
 	private void addRoles(SecurityConfig value, ContextConfigurer contextConfigurer) {
 		
-		Set<Role> allRoles = getAllRoles(value);
-		for(Role r: allRoles) {
-			contextConfigurer.addRole(r.getName(), r.getDescription());
+		Set<String> allRoles = getAllRoles(value);
+		for(String r: allRoles) {
+			contextConfigurer.addRole(r);
 		}
 		
 	}
@@ -203,20 +202,20 @@ public class ContextConfigurerListener implements EdiacaranEventListener{
 		
 	}
 	
-	private Set<Role> getAllRoles(SecurityConfig value){
+	private Set<String> getAllRoles(SecurityConfig value){
 		
-		Set<Role> r = new HashSet<Role>();
+		Set<String> r = new HashSet<String>();
 		Set<SecurityConstraint> constraints = value.getConstraints();
 		
 		if(constraints != null) {
 			
 			for(SecurityConstraint sc: constraints) {
 				
-				Set<Role> roles = sc.getRoles();
+				Set<String> roles = sc.getRoles();
 				
 				if(roles != null) {
 					
-					for(Role role: roles) {
+					for(String role: roles) {
 						r.add(role);
 					}
 					
@@ -270,14 +269,14 @@ public class ContextConfigurerListener implements EdiacaranEventListener{
 		
 		public Set<String> roles;
 		
-		public SecurityConstraintGroup(String name, String userConstraint, Set<Role> roles) {
+		public SecurityConstraintGroup(String name, String userConstraint, Set<String> roles) {
 			this.userConstraint = userConstraint;
 			this.roles = null;
 			
 			if(roles != null) {
 				this.roles = new HashSet<String>();
-				for(Role r: roles) {
-					this.roles.add(r.getName());
+				for(String r: roles) {
+					this.roles.add(r);
 				}
 			}
 		}

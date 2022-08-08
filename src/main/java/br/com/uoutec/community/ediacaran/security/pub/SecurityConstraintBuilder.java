@@ -4,8 +4,6 @@ public interface SecurityConstraintBuilder extends SecurityBuilder{
 	
 	SecurityConstraintBuilder addRole(String value);
 	
-	SecurityConstraintBuilder addRole(String value, String description);
-	
 	SecurityConstraintBuilder get();
 	
 	SecurityConstraintBuilder head();

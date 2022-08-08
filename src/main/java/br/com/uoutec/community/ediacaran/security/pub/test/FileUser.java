@@ -2,6 +2,8 @@ package br.com.uoutec.community.ediacaran.security.pub.test;
 
 import java.util.Set;
 
+import br.com.uoutec.community.ediacaran.core.security.Authorization;
+
 public class FileUser {
 
 	private String name;
@@ -12,6 +14,8 @@ public class FileUser {
 
     private Set<String> stringPermissions;
 
+    private transient Set<Authorization> permissions;
+    
 	public String getName() {
 		return name;
 	}
@@ -42,6 +46,14 @@ public class FileUser {
 
 	public void setStringPermissions(Set<String> stringPermissions) {
 		this.stringPermissions = stringPermissions;
+	}
+
+	public Set<Authorization> getPermissions() {
+		return permissions;
+	}
+
+	public void setPermissions(Set<Authorization> permissions) {
+		this.permissions = permissions;
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package br.com.uoutec.community.ediacaran.security.pub.test;
 
 import java.util.Set;
 
+import br.com.uoutec.community.ediacaran.core.security.Authorization;
 import br.com.uoutec.community.ediacaran.core.security.Principal;
 
 public class FilePrincipal implements Principal{
@@ -26,6 +27,11 @@ public class FilePrincipal implements Principal{
 	@Override
 	public Set<String> getStringPermissions() {
 		return user.getStringPermissions();
+	}
+
+	@Override
+	public Set<Authorization> getPermissions() {
+		return null;
 	}
 
 }
