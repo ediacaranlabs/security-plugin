@@ -14,7 +14,7 @@ public class FileUser {
 
     private Set<String> stringPermissions;
 
-    private transient Set<Authorization> permissions;
+    private transient Authorization permissions;
     
 	public String getName() {
 		return name;
@@ -48,11 +48,11 @@ public class FileUser {
 		this.stringPermissions = stringPermissions;
 	}
 
-	public Set<Authorization> getPermissions() {
+	public Authorization getPermissions() {
 		return permissions;
 	}
 
-	public void setPermissions(Set<Authorization> permissions) {
+	public void setPermissions(Authorization permissions) {
 		this.permissions = permissions;
 	}
 
