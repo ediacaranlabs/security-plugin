@@ -11,14 +11,12 @@ public class WebSecurityManagerPlugin
 	extends AbstractAuthorizationManagerPlugin
 	implements SecurityBuilder{
 
-	@Inject
-	private SecurityRegistry securityRegistry;
-	
 	private SecurityConfig securityConfig;
 
 	private SecurityBuilder builder;
-	
-	public WebSecurityManagerPlugin(){
+
+	@Inject
+	public WebSecurityManagerPlugin(SecurityRegistry securityRegistry){
 		this.securityConfig = new SecurityConfig();
 		this.builder = new SecurityBuilderImp(securityConfig, securityRegistry);
 	}

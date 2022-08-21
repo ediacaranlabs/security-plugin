@@ -17,6 +17,7 @@ public class SecurityBuilderImp
 	
 	public SecurityBuilderImp(SecurityConfig value, SecurityRegistry securityRegistry) {
 		this.securityConfig = value;
+		this.securityRegistry = securityRegistry;
 	}
 	
 	protected SecurityConfig getSecurityConfig() {
