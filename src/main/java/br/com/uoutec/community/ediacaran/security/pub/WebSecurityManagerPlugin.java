@@ -1,21 +1,26 @@
 package br.com.uoutec.community.ediacaran.security.pub;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import br.com.uoutec.community.ediacaran.core.security.AbstractAuthorizationManagerPlugin;
+import br.com.uoutec.community.ediacaran.core.security.SecurityRegistry;
 
 @Singleton
 public class WebSecurityManagerPlugin 
 	extends AbstractAuthorizationManagerPlugin
 	implements SecurityBuilder{
 
+	@Inject
+	private SecurityRegistry securityRegistry;
+	
 	private SecurityConfig securityConfig;
 
 	private SecurityBuilder builder;
 	
 	public WebSecurityManagerPlugin(){
 		this.securityConfig = new SecurityConfig();
-		this.builder = new SecurityBuilderImp(securityConfig);
+		this.builder = new SecurityBuilderImp(securityConfig, securityRegistry);
 	}
 	
 	@Override

@@ -5,6 +5,9 @@ import br.com.uoutec.community.ediacaran.AbstractPlugin;
 import br.com.uoutec.community.ediacaran.EdiacaranEventListener;
 import br.com.uoutec.community.ediacaran.EdiacaranListenerManager;
 import br.com.uoutec.community.ediacaran.core.security.AuthorizationManager;
+import br.com.uoutec.community.ediacaran.core.security.Role;
+import br.com.uoutec.community.ediacaran.core.security.SecurityRegistry;
+import br.com.uoutec.community.ediacaran.core.security.SecurityRegistryException;
 import br.com.uoutec.community.ediacaran.plugins.EntityContextPlugin;
 import br.com.uoutec.community.ediacaran.plugins.PluginConfiguration;
 import br.com.uoutec.community.ediacaran.plugins.PluginException;
@@ -25,7 +28,13 @@ public class PluginInstaller extends AbstractPlugin{
 		applySecurityConfiguration();
 	}
 
-	private void applySecurityConfiguration() {
+	private void applySecurityConfiguration() throws SecurityRegistryException {
+		
+		SecurityRegistry securityRegistry = EntityContextPlugin.getEntity(SecurityRegistry.class);
+		
+		securityRegistry.registerRole(new Role("manager","Manager","Application Manger",null,null,null));
+		securityRegistry.registerRole(new Role("user","User","Authenticated user",null,null,null));
+		
 		WebSecurityManagerPlugin webSecurityManagerPlugin = 
 				EntityContextPlugin.getEntity(WebSecurityManagerPlugin.class);
 	

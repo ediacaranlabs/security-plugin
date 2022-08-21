@@ -1,8 +1,10 @@
 package br.com.uoutec.community.ediacaran.security.pub;
 
+import br.com.uoutec.community.ediacaran.core.security.SecurityRegistryException;
+
 public interface SecurityConstraintBuilder extends SecurityBuilder{
 	
-	SecurityConstraintBuilder addRole(String value);
+	SecurityConstraintBuilder addRole(String value) throws SecurityRegistryException;
 	
 	SecurityConstraintBuilder get();
 	

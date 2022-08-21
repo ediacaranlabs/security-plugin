@@ -1,6 +1,8 @@
 package br.com.uoutec.community.ediacaran.security.pub;
 
 import br.com.uoutec.community.ediacaran.core.security.SecurityConstraint;
+import br.com.uoutec.community.ediacaran.core.security.SecurityRegistry;
+import br.com.uoutec.community.ediacaran.core.security.SecurityRegistryException;
 
 public class SecurityConstraintBuilderImp 
 	extends SecurityBuilderImp 
@@ -23,15 +25,22 @@ public class SecurityConstraintBuilderImp
 	public static final String TRACE = "TRACE";
 	
 	public static final String PATCH = "PATCH";
+
+	private SecurityRegistry securityRegistry;
 	
 	private SecurityConstraint securityConstraint;
 	
-	public SecurityConstraintBuilderImp(SecurityConstraint sc, SecurityBuilderImp parent) {
+	public SecurityConstraintBuilderImp(SecurityConstraint sc, SecurityRegistry securityRegistry, SecurityBuilderImp parent) {
 		super(parent);
 		this.securityConstraint = sc;
+		this.securityRegistry = securityRegistry;
 	}
 	
-	public SecurityConstraintBuilderImp addRole(String value) {
+	public SecurityConstraintBuilderImp addRole(String value) throws SecurityRegistryException {
+		if(securityRegistry.getRole(value) == null) {
+			throw new SecurityRegistryException("role not found: " + value);
+		}
+		
 		securityConstraint.getRoles().add(value);
 		return this;
 	}

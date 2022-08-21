@@ -1,17 +1,21 @@
 package br.com.uoutec.community.ediacaran.security.pub;
 
 import br.com.uoutec.community.ediacaran.core.security.SecurityConstraint;
+import br.com.uoutec.community.ediacaran.core.security.SecurityRegistry;
 
 public class SecurityBuilderImp 
 	implements SecurityBuilder{
 
+	private SecurityRegistry securityRegistry;
+	
 	private SecurityConfig securityConfig;
 	
 	public SecurityBuilderImp(SecurityBuilderImp builder) {
 		this.securityConfig = builder.securityConfig;
+		this.securityRegistry = builder.securityRegistry;
 	}
 	
-	public SecurityBuilderImp(SecurityConfig value) {
+	public SecurityBuilderImp(SecurityConfig value, SecurityRegistry securityRegistry) {
 		this.securityConfig = value;
 	}
 	
@@ -22,7 +26,7 @@ public class SecurityBuilderImp
 	public SecurityConstraintBuilder addConstraint(String value) {
 		SecurityConstraint sc = new SecurityConstraint(value);
 		securityConfig.getConstraints().add(sc);
-		return new SecurityConstraintBuilderImp(sc, this);
+		return new SecurityConstraintBuilderImp(sc, securityRegistry, this);
 	}
 	
 	public SecurityBuilder setRealmName(String value) {
