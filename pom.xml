@@ -79,10 +79,5 @@
 	        <version>1.0</version>
 			<scope>provided</scope>
 	    </dependency>
-		<dependency>
-			<groupId>br.com.uoutec</groupId>
-			<artifactId>security-ediacaran-core-plugin</artifactId>
-			<version>1.0.0</version>
-		</dependency>
 	</dependencies>
 </project>
