@@ -6,6 +6,7 @@ import javax.inject.Singleton;
 import br.com.uoutec.community.ediacaran.SecurityProvider;
 import br.com.uoutec.community.ediacaran.plugins.EntityContextPlugin;
 import br.com.uoutec.community.ediacaran.plugins.PublicBean;
+import br.com.uoutec.community.ediacaran.plugins.SecurityUtil;
 
 @Singleton
 public class AuthorizationManagerImp 
@@ -22,11 +23,7 @@ public class AuthorizationManagerImp
 	@Override
 	public Subject getSubject() {
 
-		java.lang.SecurityManager sm = System.getSecurityManager();
-		
-		if(sm != null) {
-			sm.checkPermission(GET_SUBJECT);
-		}
+		SecurityUtil.checkPermission(GET_SUBJECT);
 		
 		SecurityProvider securityProvider = 
 				EntityContextPlugin.getEntity(SecurityProvider.class);
@@ -73,11 +70,7 @@ public class AuthorizationManagerImp
 
 		public void setAuthenticationProvider(AuthenticationProvider authenticationProvider) {
 
-			java.lang.SecurityManager sm = System.getSecurityManager();
-			
-			if(sm != null) {
-				sm.checkPermission(REGISTER_AUTHENTICATION_PROVIDER);
-			}
+			SecurityUtil.checkPermission(REGISTER_AUTHENTICATION_PROVIDER);
 			
 			this.authenticationProvider = authenticationProvider;
 		}
