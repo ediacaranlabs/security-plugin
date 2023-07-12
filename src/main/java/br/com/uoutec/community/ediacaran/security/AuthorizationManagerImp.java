@@ -31,8 +31,8 @@ public class AuthorizationManagerImp
 		Object userPrincipal = securityProvider.getUserPrincipal();
 		
 		if(userPrincipal == null) {
-			return authenticationProviderRepository
-					.getAuthenticationProvider().createSubject();
+			AuthenticationProvider ap = authenticationProviderRepository.getAuthenticationProvider();
+			return ap.createSubject();
 		}
 		
 		if(!(userPrincipal instanceof br.com.uoutec.community.ediacaran.security.jaas.UserPrincipal)) {
