@@ -95,20 +95,22 @@ public class SecurityRegistryImp implements SecurityRegistry {
 		
 		Authorization root = new Authorization("*", "*", "*");
 		
-		for(String str: value) {
-			String[] vals = str.split("\\:+");
-			String[] groups;
-			Authorization authorization;
-			
-			if(vals.length > 1) {
-				groups = Arrays.copyOf(vals, vals.length - 1);
-				authorization = new Authorization(vals[vals.length - 1], vals[vals.length - 1], vals[vals.length - 1]);
+		if(value != null) {
+			for(String str: value) {
+				String[] vals = str.split("\\:+");
+				String[] groups;
+				Authorization authorization;
+				
+				if(vals.length > 1) {
+					groups = Arrays.copyOf(vals, vals.length - 1);
+					authorization = new Authorization(vals[vals.length - 1], vals[vals.length - 1], vals[vals.length - 1]);
+				}
+				else {
+					groups = new String[0];
+					authorization = new Authorization(vals[0], vals[0], vals[0]);
+				}
+				root.put(authorization, true, groups);
 			}
-			else {
-				groups = new String[0];
-				authorization = new Authorization(vals[0], vals[0], vals[0]);
-			}
-			root.put(authorization, true, groups);
 		}
 		
 		return root;
