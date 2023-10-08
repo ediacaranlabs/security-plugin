@@ -1,4 +1,4 @@
-package br.com.uoutec.community.ediacaran.front.security.file;
+package br.com.uoutec.community.ediacaran.security.file;
 
 import java.util.HashSet;
 import java.util.Set;

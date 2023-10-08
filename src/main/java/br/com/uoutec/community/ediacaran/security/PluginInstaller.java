@@ -1,9 +1,9 @@
 package br.com.uoutec.community.ediacaran.security;
 
 import br.com.uoutec.community.ediacaran.AbstractPlugin;
-import br.com.uoutec.community.ediacaran.front.security.file.FileAuthenticationProvider;
 import br.com.uoutec.community.ediacaran.plugins.EntityContextPlugin;
 import br.com.uoutec.community.ediacaran.plugins.PluginType;
+import br.com.uoutec.community.ediacaran.security.file.FileAuthenticationProvider;
 
 public class PluginInstaller extends AbstractPlugin{
 	

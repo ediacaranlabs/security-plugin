@@ -1,4 +1,4 @@
-package br.com.uoutec.community.ediacaran.front.security.file;
+package br.com.uoutec.community.ediacaran.security.file;
 
 import br.com.uoutec.community.ediacaran.security.AbstractSubject;
 import br.com.uoutec.community.ediacaran.security.AuthorizationException;

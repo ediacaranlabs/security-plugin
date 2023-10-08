@@ -14,6 +14,9 @@ public class AuthorizationManagerImp
 
 	private AuthenticationProviderRepository authenticationProviderRepository;
 	
+	public AuthorizationManagerImp() {
+	}
+	
 	@Inject
 	public AuthorizationManagerImp(AuthenticationProviderRepository authenticationProviderRepository) {
 		this.authenticationProviderRepository = authenticationProviderRepository;
