@@ -3,10 +3,12 @@ package br.com.uoutec.community.ediacaran.security;
 import java.io.Serializable;
 
 import javax.annotation.Priority;
-import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
+
+import br.com.uoutec.community.ediacaran.SecurityProvider;
+import br.com.uoutec.community.ediacaran.plugins.EntityContextPlugin;
 
 @Interceptor
 @RequiresPermissions("")
@@ -15,19 +17,37 @@ public class SecurityInterceptor implements Serializable{
 
 	private static final long serialVersionUID = 653866956804466834L;
 
-
-	@Inject
-	private AuthorizationManager securityManager;
-	
 	public SecurityInterceptor(){
     }
     
+	private Subject getSubject() {
+		
+		SecurityProvider securityProvider = 
+				EntityContextPlugin.getEntity(SecurityProvider.class);
+		
+		Object userPrincipal = securityProvider.getUserPrincipal();
+		
+		if(!(userPrincipal instanceof br.com.uoutec.community.ediacaran.security.jaas.UserPrincipal)) {
+			return null;
+		}
+		
+		userPrincipal = 
+				((br.com.uoutec.community.ediacaran.security.jaas.UserPrincipal)userPrincipal)
+				.getUserPrincipal();
+		
+		if(userPrincipal instanceof Principal) {
+			return new AuthenticatedSubject((Principal)userPrincipal);
+		}
+		
+		return null;
+	}
+	
     @AroundInvoke
     public Object activateRequestContext(final InvocationContext p_invocationContext) throws Exception {
     	
     	String[] values = getRequiresPermissions(p_invocationContext);
     	
-    	Subject subject = securityManager.getSubject();
+    	Subject subject = getSubject();//securityManager.getSubject();
     	
     	if(subject == null) {
     		throw new SecurityException("subject not found");

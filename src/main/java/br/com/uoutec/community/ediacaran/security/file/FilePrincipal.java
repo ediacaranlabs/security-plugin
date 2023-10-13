@@ -12,7 +12,6 @@ public class FilePrincipal implements Principal{
 	private final FileUser user;
 	
 	public FilePrincipal(FileUser user) {
-		super();
 		this.user = user;
 	}
 

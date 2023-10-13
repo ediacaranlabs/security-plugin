@@ -1,5 +1,7 @@
 package br.com.uoutec.community.ediacaran.security.file;
 
+import javax.inject.Inject;
+
 import br.com.uoutec.community.ediacaran.security.AbstractSubject;
 import br.com.uoutec.community.ediacaran.security.AuthorizationException;
 import br.com.uoutec.community.ediacaran.security.Principal;
@@ -7,12 +9,13 @@ import br.com.uoutec.community.ediacaran.security.jaas.Authentication;
 
 public class FileSubject extends AbstractSubject{
 
-	private FileAuthenticationProvider fileAuthenticationProvider;
+	private FileUserRepository fileUserRepository;
 	
 	private Principal user;
 	
-	public FileSubject(FileAuthenticationProvider fileAuthenticationProvider) {
-		this.fileAuthenticationProvider = fileAuthenticationProvider;
+	@Inject
+	public FileSubject(FileUserRepository fileUserRepository) {
+		this.fileUserRepository = fileUserRepository;
 	}
 
 	@Override
@@ -22,7 +25,7 @@ public class FileSubject extends AbstractSubject{
 
 	@Override
 	public void login(Authentication token) throws AuthorizationException {
-		this.user = fileAuthenticationProvider.login(token);
+		this.user = fileUserRepository.login(token);
 	}
 
 	@Override

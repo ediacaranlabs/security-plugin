@@ -12,7 +12,6 @@ import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -20,17 +19,13 @@ import com.google.gson.reflect.TypeToken;
 
 import br.com.uoutec.community.ediacaran.plugins.PluginConfigurationMetadata;
 import br.com.uoutec.community.ediacaran.plugins.PluginType;
-import br.com.uoutec.community.ediacaran.security.AuthenticationProvider;
 import br.com.uoutec.community.ediacaran.security.AuthorizationException;
 import br.com.uoutec.community.ediacaran.security.Principal;
 import br.com.uoutec.community.ediacaran.security.SecurityRegistry;
-import br.com.uoutec.community.ediacaran.security.Subject;
 import br.com.uoutec.community.ediacaran.security.jaas.Authentication;
 import br.com.uoutec.community.ediacaran.security.jaas.UsernamePasswordAuthentication;
 
-@Singleton
-public class FileAuthenticationProvider 
-	implements AuthenticationProvider {
+public class FileUserRepository {
 
 	private static Gson gson;
 
@@ -52,20 +47,15 @@ public class FileAuthenticationProvider
 	@Inject
 	private SecurityRegistry securityRegistry;
 	
-	public FileAuthenticationProvider() {
+	public FileUserRepository() {
 	}
 	
 	@Inject
-	public FileAuthenticationProvider(PluginType pluginType) {
+	public FileUserRepository(PluginType pluginType) {
 		this.pluginType = pluginType;
 	}
 
-	@Override
-	public Subject createSubject() {
-		return new FileSubject(this);
-	}
-
-	Principal login(Authentication value) {
+	public Principal login(Authentication value) {
 		
 		if(value instanceof UsernamePasswordAuthentication) {
 			return login((UsernamePasswordAuthentication)value);
