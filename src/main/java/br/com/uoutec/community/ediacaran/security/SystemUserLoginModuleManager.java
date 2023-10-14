@@ -12,7 +12,7 @@ import br.com.uoutec.community.ediacaran.plugins.PluginType;
 import br.com.uoutec.community.ediacaran.plugins.SecurityUtil;
 
 @Singleton
-public class LoginModuleManagerImp implements LoginModuleManager{
+public class SystemUserLoginModuleManager implements LoginModuleManager{
 
 	public static final String LOGIN_MODULE_PROPERTY = "authentication_provider";
 	
@@ -28,11 +28,11 @@ public class LoginModuleManagerImp implements LoginModuleManager{
 	
 	private PluginType pluginType;
 	
-	public LoginModuleManagerImp() {
+	public SystemUserLoginModuleManager() {
 	}
 	
 	@Inject
-	public LoginModuleManagerImp(PluginType pluginType) {
+	public SystemUserLoginModuleManager(PluginType pluginType) {
 		this.modules = new ConcurrentHashMap<>();
 		this.pluginType = pluginType;
 	}

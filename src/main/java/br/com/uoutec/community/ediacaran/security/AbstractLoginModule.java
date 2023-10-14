@@ -50,6 +50,7 @@ public abstract class AbstractLoginModule implements LoginModule {
 		this.sharedState     = sharedState;
 		this.options         = options;
 	    this.principals      = new HashSet<java.security.Principal>();
+	    this.subject         = subject;
 	}
 	
 	public Subject getSubject() {

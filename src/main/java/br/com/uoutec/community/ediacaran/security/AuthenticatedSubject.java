@@ -21,7 +21,7 @@ public class AuthenticatedSubject extends AbstractSubject {
 
 	@Override
 	public void logout() {
-		this.principal = null;
+		principal = null;
 	}
 
 }

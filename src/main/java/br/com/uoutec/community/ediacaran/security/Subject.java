@@ -35,6 +35,6 @@ public interface Subject {
 
     boolean isAuthenticated();
 
-    void logout();
-	
+	void logout();
+    
 }
