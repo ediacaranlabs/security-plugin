@@ -5,9 +5,13 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.stream.Collectors;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import br.com.uoutec.community.ediacaran.plugins.PluginType;
 import br.com.uoutec.community.ediacaran.plugins.SecurityUtil;
 
+@Singleton
 public class LoginModuleManagerImp implements LoginModuleManager{
 
 	public static final String LOGIN_MODULE_PROPERTY = "authentication_provider";
@@ -24,6 +28,10 @@ public class LoginModuleManagerImp implements LoginModuleManager{
 	
 	private PluginType pluginType;
 	
+	public LoginModuleManagerImp() {
+	}
+	
+	@Inject
 	public LoginModuleManagerImp(PluginType pluginType) {
 		this.modules = new ConcurrentHashMap<>();
 		this.pluginType = pluginType;
