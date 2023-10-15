@@ -16,9 +16,11 @@ public abstract class AbstractSubject
 			return false;
 		}
 		
-		for( Authorization a: principal.getPermissions()) {
-			if(a.accept(permission)) {
-				return true;
+		if(principal.getPermissions() != null) {
+			for( Authorization a: principal.getPermissions()) {
+				if(a.accept(permission)) {
+					return true;
+				}
 			}
 		}
 		

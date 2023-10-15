@@ -91,7 +91,7 @@ public class SecurityRegistryImp implements SecurityRegistry {
 	}
 
 	@Override
-	public Authorization toAuthorization(Set<String> value) {
+	public Set<Authorization> toAuthorization(Set<String> value) {
 		
 		Authorization root = new Authorization("*", "*", "*");
 		
@@ -113,7 +113,7 @@ public class SecurityRegistryImp implements SecurityRegistry {
 			}
 		}
 		
-		return root;
+		return root.getChilds();
 	}
 
 	@Override

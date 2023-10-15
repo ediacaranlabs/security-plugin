@@ -88,6 +88,10 @@ public class Authorization {
 	}
 	
 	public boolean accept(String value) {
+
+		if("*".equals(id)) {
+			return true;
+		}
 		
 		value = value == null? null : value.trim();
 		
@@ -99,7 +103,34 @@ public class Authorization {
 		
 		return accept(parts, 0);
 	}
+
+	private boolean accept(String[] parts, int idx) {
+		
+		String p = parts[idx];
+		
+		if(p.equals(id)) {
+			
+			idx++;
+			
+			if(idx < parts.length) {
+				
+				Authorization authorization = groups.get(parts[idx]);
+				
+				if(authorization == null) {
+					return false;
+				}
+				
+				return authorization.accept(parts, idx);
+			}
+			
+			return true;
+		}
+		
+		return false;
+		
+	}
 	
+	/*
 	private boolean accept(String[] parts, int idx) {
 		
 		if(idx >= parts.length) {
@@ -116,7 +147,8 @@ public class Authorization {
 		
 		return authorization.accept(parts, idx + 1);
 	}
-
+    */
+	
 	void put(Authorization value, boolean create, String ... groups) {
 		put(value, groups, create, 0);
 	}

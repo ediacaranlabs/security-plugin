@@ -19,7 +19,7 @@ public interface SecurityRegistry extends Registry, PublicBean{
 
 	Authorization getAuthorization(String ... id);
 	
-	Authorization toAuthorization(Set<String> value);
+	Set<Authorization> toAuthorization(Set<String> value);
 	
 	Role getRole(String id);
 	

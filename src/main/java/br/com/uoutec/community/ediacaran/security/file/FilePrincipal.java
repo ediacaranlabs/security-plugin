@@ -1,7 +1,5 @@
 package br.com.uoutec.community.ediacaran.security.file;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
 
 import br.com.uoutec.community.ediacaran.security.Authorization;
@@ -32,7 +30,7 @@ public class FilePrincipal implements Principal{
 
 	@Override
 	public Set<Authorization> getPermissions() {
-		return new HashSet<Authorization>(Arrays.asList(user.getPermissions()));
+		return user.getPermissions();
 	}
 
 }
