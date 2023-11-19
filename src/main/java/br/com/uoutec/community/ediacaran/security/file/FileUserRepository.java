@@ -1,7 +1,6 @@
 package br.com.uoutec.community.ediacaran.security.file;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
@@ -17,6 +16,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import br.com.uoutec.community.ediacaran.io.FileSystem;
 import br.com.uoutec.community.ediacaran.plugins.PluginConfigurationMetadata;
 import br.com.uoutec.community.ediacaran.plugins.PluginType;
 import br.com.uoutec.community.ediacaran.security.AuthorizationException;
@@ -104,7 +104,7 @@ public class FileUserRepository {
 
 		Set<FileUser> data;
 			
-		try(InputStreamReader in = new InputStreamReader(new FileInputStream(userFile), "UTF-8")){
+		try(InputStreamReader in = new InputStreamReader( FileSystem.getInputStream(userFile), "UTF-8")){
 			data = gson.fromJson(in, typeOfHashMap);
 		}
 		catch(Throwable e) {
