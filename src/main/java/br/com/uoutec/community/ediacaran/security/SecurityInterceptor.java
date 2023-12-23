@@ -7,8 +7,8 @@ import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 
-import br.com.uoutec.community.ediacaran.SecurityProvider;
-import br.com.uoutec.community.ediacaran.plugins.EntityContextPlugin;
+import br.com.uoutec.ediacaran.core.SecurityProvider;
+import br.com.uoutec.ediacaran.core.plugins.EntityContextPlugin;
 
 @Interceptor
 @RequiresPermissions("")

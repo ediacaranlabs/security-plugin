@@ -6,8 +6,8 @@ import javax.security.auth.Subject;
 import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.login.LoginException;
 
-import br.com.uoutec.community.ediacaran.plugins.EntityContextPlugin;
 import br.com.uoutec.community.ediacaran.security.LoginModuleManager;
+import br.com.uoutec.ediacaran.core.plugins.EntityContextPlugin;
 
 public class LoginModule implements javax.security.auth.spi.LoginModule {
 

@@ -9,7 +9,8 @@ import java.util.stream.Collectors;
 
 import javax.inject.Singleton;
 
-import br.com.uoutec.community.ediacaran.plugins.SecurityUtil;
+import br.com.uoutec.application.security.ContextSystemSecurityCheck;
+import br.com.uoutec.application.security.RuntimeSecurityPermission;
 
 @Singleton
 public class SecurityRegistryImp implements SecurityRegistry {
@@ -32,7 +33,7 @@ public class SecurityRegistryImp implements SecurityRegistry {
 	@Override
 	public String registerRole(Role role) throws SecurityRegistryException {
 		
-		SecurityUtil.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "role.register"));
+		ContextSystemSecurityCheck.checkPermission(new RuntimeSecurityPermission(PERMISSION_PREFIX + "role.register"));
 		
 		if(roles.putIfAbsent(role.getId(), role) != null) {
 			throw new SecurityRegistryException("has been added: " + role.getId());
@@ -44,7 +45,7 @@ public class SecurityRegistryImp implements SecurityRegistry {
 	@Override
 	public boolean unregisterRole(String id) {
 		
-		SecurityUtil.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "role.unregister"));
+		ContextSystemSecurityCheck.checkPermission(new RuntimeSecurityPermission(PERMISSION_PREFIX + "role.unregister"));
 		
 		return roles.remove(id) != null;
 	}
@@ -52,7 +53,7 @@ public class SecurityRegistryImp implements SecurityRegistry {
 	@Override
 	public String registerAuthorization(Authorization value, String... groups) throws SecurityRegistryException {
 		
-		SecurityUtil.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "authorization.register"));
+		ContextSystemSecurityCheck.checkPermission(new RuntimeSecurityPermission(PERMISSION_PREFIX + "authorization.register"));
 		
 		if(value == null) {
 			throw new NullPointerException();
@@ -80,7 +81,7 @@ public class SecurityRegistryImp implements SecurityRegistry {
 	@Override
 	public boolean unregisterAuthorization(String ... id) {
 		
-		SecurityUtil.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "authorization.unregister"));
+		ContextSystemSecurityCheck.checkPermission(new RuntimeSecurityPermission(PERMISSION_PREFIX + "authorization.unregister"));
 		
 		return authorization.remove(id);
 	}

@@ -2,8 +2,8 @@ package br.com.uoutec.community.ediacaran.security;
 
 import javax.inject.Singleton;
 
-import br.com.uoutec.community.ediacaran.SecurityProvider;
-import br.com.uoutec.community.ediacaran.plugins.EntityContextPlugin;
+import br.com.uoutec.ediacaran.core.SecurityProvider;
+import br.com.uoutec.ediacaran.core.plugins.EntityContextPlugin;
 
 @Singleton
 public class SubjectProviderImp 

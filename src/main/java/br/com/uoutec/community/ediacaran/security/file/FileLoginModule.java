@@ -8,8 +8,8 @@ import javax.security.auth.callback.NameCallback;
 import javax.security.auth.callback.PasswordCallback;
 import javax.security.auth.callback.TextInputCallback;
 
-import br.com.uoutec.community.ediacaran.plugins.PublicBean;
 import br.com.uoutec.community.ediacaran.security.AbstractLoginModule;
+import br.com.uoutec.ediacaran.core.plugins.PublicBean;
 
 public class FileLoginModule 
 	extends AbstractLoginModule

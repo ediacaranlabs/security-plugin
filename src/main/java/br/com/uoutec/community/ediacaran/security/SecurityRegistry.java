@@ -2,7 +2,7 @@ package br.com.uoutec.community.ediacaran.security;
 
 import java.util.Set;
 
-import br.com.uoutec.community.ediacaran.plugins.PublicBean;
+import br.com.uoutec.ediacaran.core.plugins.PublicBean;
 import br.com.uoutec.entity.registry.Registry;
 
 public interface SecurityRegistry extends Registry, PublicBean{
