@@ -9,6 +9,9 @@ public class FileLoginModuleProvider implements LoginModuleProvider {
 
 	private FileUserRepository fileUserRepository;
 	
+	public FileLoginModuleProvider() {
+	}
+	
 	@Inject
 	public FileLoginModuleProvider(FileUserRepository fileUserRepository) {
 		this.fileUserRepository = fileUserRepository;
