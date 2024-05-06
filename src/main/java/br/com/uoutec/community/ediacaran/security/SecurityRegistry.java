@@ -1,5 +1,6 @@
 package br.com.uoutec.community.ediacaran.security;
 
+import java.util.List;
 import java.util.Set;
 
 import br.com.uoutec.ediacaran.core.plugins.PublicBean;
@@ -23,6 +24,8 @@ public interface SecurityRegistry extends Registry, PublicBean{
 	
 	Role getRole(String id);
 	
-	Set<Role> getAll();
+	List<Role> getAllRoles();
+	
+	List<AuthorizationEntry> getAllAuthorizations();
 	
 }

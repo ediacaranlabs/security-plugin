@@ -1,7 +1,8 @@
 package br.com.uoutec.community.ediacaran.security;
 
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -20,10 +21,13 @@ public class SecurityRegistryImp implements SecurityRegistry {
 	private final Authorization authorization;
 	
 	private final ConcurrentMap<String, Role> roles;
+
+	private final ConcurrentMap<String, AuthorizationEntry> authorizationMap;
 	
 	public SecurityRegistryImp() {
 		authorization = new Authorization("*", "all", "All");
 		this.roles = new ConcurrentHashMap<String, Role>();
+		this.authorizationMap = new ConcurrentHashMap<String, AuthorizationEntry>();
 	}
 	
 	@Override
@@ -73,17 +77,26 @@ public class SecurityRegistryImp implements SecurityRegistry {
 		
 		authorization.put(value, false, groups);
 		
-		return groups.length == 0?
+		String authorizationID = groups.length == 0?
 				value.getId() :
 				Arrays.stream(groups).collect(Collectors.joining(":")).concat(":").concat(value.getId());
+		
+		authorizationMap.put(authorizationID, new AuthorizationEntry(authorizationID, value));
+		
+		return authorizationID;
 	}
 
 	@Override
-	public boolean unregisterAuthorization(String ... id) {
+	public boolean unregisterAuthorization(String ... groups) {
 		
 		ContextSystemSecurityCheck.checkPermission(new RuntimeSecurityPermission(PERMISSION_PREFIX + "authorization.unregister"));
+
+		String authorizationID = 
+				Arrays.stream(groups).collect(Collectors.joining(":"));
 		
-		return authorization.remove(id);
+		authorizationMap.remove(authorizationID);
+		
+		return authorization.remove(groups);
 	}
 
 	@Override
@@ -123,8 +136,17 @@ public class SecurityRegistryImp implements SecurityRegistry {
 	}
 
 	@Override
-	public Set<Role> getAll() {
-		return new HashSet<Role>(roles.values());
+	public List<Role> getAllRoles() {
+		List<Role> list = roles.values().stream().collect(Collectors.toList());
+		Collections.sort(list, (o1, o2) -> o1.getId().compareTo(o2.getId()));
+		return Collections.unmodifiableList(list);
 	}
 
+	@Override
+	public List<AuthorizationEntry> getAllAuthorizations() {
+		List<AuthorizationEntry> list = authorizationMap.values().stream().collect(Collectors.toList());
+		Collections.sort(list, (o1, o2) -> o1.getId().compareTo(o2.getId()));
+		return Collections.unmodifiableList(list);
+	}
+	
 }

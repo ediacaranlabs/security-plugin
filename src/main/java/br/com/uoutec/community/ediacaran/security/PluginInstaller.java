@@ -16,8 +16,8 @@ public class PluginInstaller extends AbstractPlugin{
 		
 		SecurityRegistry securityRegistry = EntityContextPlugin.getEntity(SecurityRegistry.class);
 		
-		securityRegistry.registerRole(new Role("manager","Manager","Application Manger",null,null,null));
-		securityRegistry.registerRole(new Role("user","User","Authenticated user",null,null,null));
+		securityRegistry.registerRole(new Role("manager","Manager","Application Manger", null, null, null));
+		securityRegistry.registerRole(new Role("user","User","Authenticated user", null, null, null));
 		
 		/*
 		PluginType pluginType = EntityContextPlugin.getEntity(PluginType.class);
