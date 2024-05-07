@@ -52,7 +52,7 @@ public class SystemUserLoginModuleManager implements LoginModuleManager{
 	@Override
 	public List<String> getLoginModules() {
 		
-		ContextSystemSecurityCheck.checkPermission(GET_MODULE);
+		//ContextSystemSecurityCheck.checkPermission(GET_MODULE);
 		
 		return modules.keySet().stream().collect(Collectors.toList());
 	}
