@@ -1,19 +1,9 @@
 package br.com.uoutec.community.ediacaran.security;
 
-public enum BasicRoles {
+public interface BasicRoles {
 
-	MANAGER("manager"),
+	public static final String MANAGER	= "manager";
 	
-	USER("user");
-	
-	private String name;
-	
-	BasicRoles(String name) {
-		this.name = name;
-	}
-	
-	public String toString() {
-		return name;
-	}
+	public static final String USER 	= "user";
 	
 }
