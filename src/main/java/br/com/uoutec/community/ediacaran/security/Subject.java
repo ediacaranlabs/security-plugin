@@ -15,6 +15,8 @@ public interface Subject {
 
     boolean isPermittedAll(String... permissions);
 
+    boolean isPermittedAll(List<String> permissions);
+    
     void checkPermissions(String ... permissions) throws AuthorizationException;
     
     void checkPermission(String permission) throws AuthorizationException;

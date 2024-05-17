@@ -41,6 +41,17 @@ public abstract class AbstractSubject
 	}
 
 	@Override
+    public boolean isPermittedAll(List<String> permissions) {
+		for(String p: permissions) {
+			if(!isPermitted(p)) {
+				return false;
+			}
+		}
+		
+		return true;
+    }
+	
+	@Override
 	public boolean isPermittedAll(String... permissions) {
 		
 		for(String p: permissions) {

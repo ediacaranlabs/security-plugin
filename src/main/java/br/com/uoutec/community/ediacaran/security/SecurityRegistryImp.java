@@ -16,7 +16,7 @@ import br.com.uoutec.application.security.RuntimeSecurityPermission;
 @Singleton
 public class SecurityRegistryImp implements SecurityRegistry {
 
-	private static final String idRegex = "[A-Z0-9]+(\\-[A-Z0-9]+)*";
+	private static final String idRegex = "[A-Z0-9]+(\\_[A-Z0-9]+)*";
 	
 	private final Authorization authorization;
 	
