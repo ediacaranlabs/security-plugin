@@ -12,8 +12,7 @@ public class SubjectProviderImp
 			
 	@Override
 	public Subject getSubject() {
-		LoginModule loginModule = loginModuleManager.getLoginModule();
-		return loginModule.getSubject();
+		return loginModuleManager.getSubject();
 	}
 
 }

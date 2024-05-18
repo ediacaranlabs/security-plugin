@@ -85,4 +85,18 @@ public class SystemUserLoginModuleManager implements LoginModuleManager{
 		return lm;
 	}
 
+	@Override
+	public Subject getSubject() {
+		
+		String value = pluginType.getConfiguration().getString(LOGIN_MODULE_PROPERTY);
+		
+		LoginModuleProvider lmp = modules.get(value);
+		
+		if(lmp == null) {
+			throw new NullPointerException("modules");
+		}
+		
+		return lmp.getSubject();
+	}
+	
 }

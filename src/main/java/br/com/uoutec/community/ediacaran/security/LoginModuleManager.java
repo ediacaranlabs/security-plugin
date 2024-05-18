@@ -10,6 +10,8 @@ public interface LoginModuleManager extends PublicBean{
 
 	List<String> getLoginModules();
 	
+	Subject getSubject();
+	
 	LoginModule getLoginModule();
 	
 	void unregisterLoginModule(String name);
