@@ -1,30 +1,65 @@
 package br.com.uoutec.community.ediacaran.security.jaas;
 
-import br.com.uoutec.community.ediacaran.security.AuthenticatedSubject;
-import br.com.uoutec.community.ediacaran.security.Subject;
+import java.util.Collections;
+import java.util.Set;
 
-public class UserPrincipal implements java.security.Principal {
+import br.com.uoutec.community.ediacaran.security.Authorization;
 
-	private br.com.uoutec.community.ediacaran.security.Principal userPrincipal;
+public class UserPrincipal 
+	implements java.security.Principal, Principal {
 
-	private AuthenticatedSubject authenticatedSubject;
+	private final Object systemID;
 	
-	public UserPrincipal(br.com.uoutec.community.ediacaran.security.Principal userPrincipal) {
-		this.userPrincipal = userPrincipal;
-		this.authenticatedSubject = new AuthenticatedSubject(userPrincipal);
+	private final Set<String> roles;
+	
+	private final Set<String> stringPermissions;
+	
+	private final Set<Authorization> permissions;
+	
+	private final Set<java.security.Principal> principals;
+	
+	public UserPrincipal(Object systemID, Set<String> roles, 
+			Set<String> stringPermissions,  Set<Authorization> permissions, 
+			Set<java.security.Principal> principals) {
+		this.systemID = systemID;
+		this.roles = Collections.unmodifiableSet(roles);
+		this.stringPermissions = Collections.unmodifiableSet(stringPermissions);
+		this.permissions = Collections.unmodifiableSet(permissions);
+		this.principals = Collections.unmodifiableSet(principals);
+	}
+	
+	@Override
+	public String getName() {
+		return String.valueOf(systemID);
+	}
+
+	public Object getSystemID() {
+		return systemID;
 	}
 
 	@Override
-	public String getName() {
-		return String.valueOf(userPrincipal.getUserPrincipal());
+	public java.security.Principal getUserPrincipal() {
+		return this;
 	}
 
-	public br.com.uoutec.community.ediacaran.security.Principal getUserPrincipal(){
-		return userPrincipal;
+	@Override
+	public Set<java.security.Principal> getPrincipals() {
+		return principals;
 	}
 
-	public Subject getSubject(){
-		return authenticatedSubject;
+	@Override
+	public Set<String> getRoles() {
+		return roles;
+	}
+
+	@Override
+	public Set<String> getStringPermissions() {
+		return stringPermissions;
+	}
+
+	@Override
+	public Set<Authorization> getPermissions() {
+		return permissions;
 	}
 	
 }

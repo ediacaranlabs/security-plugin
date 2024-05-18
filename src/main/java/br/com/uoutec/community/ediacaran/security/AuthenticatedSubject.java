@@ -17,11 +17,12 @@ public class AuthenticatedSubject extends AbstractSubject {
 
 	@Override
 	public void login(Authentication token) throws AuthorizationException {
+		throw new SecurityException();
 	}
 
 	@Override
 	public void logout() {
-		principal = null;
+		throw new SecurityException();
 	}
 
 }

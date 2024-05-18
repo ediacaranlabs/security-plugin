@@ -129,7 +129,6 @@ public abstract class AbstractSubject
 		checkRoles(Arrays.asList(roleIdentifiers));
 	}
 
-
 	@Override
 	public boolean isAuthenticated() {
 		return getPrincipal() != null;

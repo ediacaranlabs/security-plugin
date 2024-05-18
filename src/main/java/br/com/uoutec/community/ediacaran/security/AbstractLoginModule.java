@@ -2,7 +2,6 @@ package br.com.uoutec.community.ediacaran.security;
 
 import java.io.IOException;
 import java.security.cert.X509Certificate;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -16,8 +15,6 @@ import javax.security.auth.login.LoginException;
 
 import org.apache.log4j.Logger;
 
-import br.com.uoutec.community.ediacaran.security.jaas.RolePrincipal;
-import br.com.uoutec.community.ediacaran.security.jaas.UserPrincipal;
 import br.com.uoutec.community.ediacaran.security.jaas.UsernamePasswordAuthentication;
 import br.com.uoutec.community.ediacaran.security.jaas.X509CertificateAuthentication;
 
@@ -31,17 +28,15 @@ public abstract class AbstractLoginModule implements LoginModule {
 	
 	protected Map<String, ?> options;
 	
-	protected javax.security.auth.Subject subject;
-	
-	protected Set<java.security.Principal> principals;
-	
+	protected Subject subject;
+
+	protected javax.security.auth.Subject jaaSubject;
+
 	private List<Callback> callbacks;
 	
-	private Subject internalSubject;
-	
-	public AbstractLoginModule(Subject internalSubject, List<Callback> callbacks) {
-		this.internalSubject = internalSubject;
+	public AbstractLoginModule(Subject subject, List<Callback> callbacks) {
 		this.callbacks = callbacks;
+		this.subject = subject;
 	}
 	
 	public void initialize(javax.security.auth.Subject subject, 
@@ -49,12 +44,11 @@ public abstract class AbstractLoginModule implements LoginModule {
 		this.callbackHandler = callbackHandler;
 		this.sharedState     = sharedState;
 		this.options         = options;
-	    this.principals      = new HashSet<java.security.Principal>();
-	    this.subject         = subject;
+	    this.jaaSubject      = subject;
 	}
 	
 	public Subject getSubject() {
-		return internalSubject;
+		return subject;
 	}
 
     public boolean login() throws LoginException{
@@ -78,8 +72,9 @@ public abstract class AbstractLoginModule implements LoginModule {
         if(getSubject().isAuthenticated()) {
         	return true;
         }
+
         
-        Set<X509Certificate> certificates = subject.getPublicCredentials(X509Certificate.class);
+        Set<X509Certificate> certificates = jaaSubject.getPublicCredentials(X509Certificate.class);
         
         if(certificates.isEmpty()) {
 			loginUsernamePassword(callbacks, getSubject());
@@ -92,8 +87,7 @@ public abstract class AbstractLoginModule implements LoginModule {
     	
     }
 	
-	private void loginUsernamePassword(Callback[] callbacks,
-			br.com.uoutec.community.ediacaran.security.Subject subject) throws LoginException {
+	private void loginUsernamePassword(Callback[] callbacks, Subject subject) throws LoginException {
 		
         // user callback get value
         if (((NameCallback) callbacks[0]).getName() == null) {
@@ -112,7 +106,7 @@ public abstract class AbstractLoginModule implements LoginModule {
 		UsernamePasswordAuthentication token = new UsernamePasswordAuthentication(login, password);
 		
 		try {
-			getSubject().login(token);
+			subject.login(token);
 		} 
 		catch (UnknownAccountException uae) {           
 			logger.error("Username Not Found!", uae);        
@@ -129,8 +123,7 @@ public abstract class AbstractLoginModule implements LoginModule {
 		
 	}
 	
-	private void loginCert(Set<X509Certificate> certificates,
-			br.com.uoutec.community.ediacaran.security.Subject subject) throws LoginException {
+	private void loginCert(Set<X509Certificate> certificates, Subject subject) throws LoginException {
 		
 		X509CertificateAuthentication token = new X509CertificateAuthentication(certificates);
 
@@ -154,47 +147,20 @@ public abstract class AbstractLoginModule implements LoginModule {
 	
 	@Override
 	public boolean commit() throws LoginException {
-		
-		Principal internalPrincipal = getSubject().getPrincipal();
-		
-		principals.clear();
-		
-		principals.add(new UserPrincipal(internalPrincipal));
-		
-	    Set<String> roles = internalPrincipal.getRoles();
-	    
-	    if(roles != null && !roles.isEmpty()) {
-	    	for(String roleName: roles) {
-		        RolePrincipal role = new RolePrincipal(roleName);
-		        principals.add(role);
-	    	}
-	    }
-	    
-	    subject.getPrincipals().addAll(principals);
-	    
+		jaaSubject.getPrincipals().addAll(getSubject().getPrincipal().getPrincipals());
         return getSubject().isAuthenticated();
     }
 
 	@Override
 	public boolean abort() throws LoginException {
-		
-		if(principals != null) {
-			principals.clear();
-		}
-		
 		return true;	
 	}
 
 	@Override
 	public boolean logout() throws LoginException {
-		
-		subject.getPrincipals().removeAll(principals);
-		
-		if(principals != null) {
-			principals.clear();
-		}
-		
-		return true;
+		jaaSubject.getPrincipals().removeAll(getSubject().getPrincipal().getPrincipals());
+		getSubject().logout();
+		return !getSubject().isAuthenticated();
 	}
 
 	protected List<Callback> getCallbacks(){

@@ -6,4 +6,6 @@ public interface LoginModuleProvider extends PublicBean{
 
 	LoginModule getLoginModule();
 	
+	Subject getSubject();
+	
 }
