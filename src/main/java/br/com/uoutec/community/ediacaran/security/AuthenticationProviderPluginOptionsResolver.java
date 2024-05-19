@@ -14,12 +14,12 @@ public class AuthenticationProviderPluginOptionsResolver
 	implements PluginOptionsResolver{
 
 	@Inject
-	private LoginModuleManager loginModuleManager;
+	private AuthenticationManager loginModuleManager;
 	
 	@Override
 	public List<PluginPropertyOption> getOptions() {
 		
-		List<String> list = loginModuleManager.getLoginModules();
+		List<String> list = loginModuleManager.getAuthenticationProviders();
 		
 		List<PluginPropertyOption> result = new ArrayList<>();
 		

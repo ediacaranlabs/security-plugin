@@ -13,33 +13,38 @@ import br.com.uoutec.application.security.RuntimeSecurityPermission;
 import br.com.uoutec.ediacaran.core.plugins.PluginType;
 
 @Singleton
-public class SystemUserLoginModuleManager implements LoginModuleManager{
+public class AuthenticationManagerImp implements AuthenticationManager {
 
-	public static final String LOGIN_MODULE_PROPERTY = "authentication_provider";
+	public static final String LOGIN_MODULE_PROPERTY = 
+			"authentication_provider";
 	
-	public static final RuntimeSecurityPermission LIST_MODULE = new RuntimeSecurityPermission("app.security.module.list");
+	public static final RuntimeSecurityPermission LIST_MODULE = 
+			new RuntimeSecurityPermission("app.security.module.list");
 
-	public static final RuntimeSecurityPermission GET_MODULE = new RuntimeSecurityPermission("app.security.module.get");
+	public static final RuntimeSecurityPermission GET_MODULE = 
+			new RuntimeSecurityPermission("app.security.module.get");
 	
-	public static final RuntimeSecurityPermission REGISTER_MODULE = new RuntimeSecurityPermission("app.security.module.register");
+	public static final RuntimeSecurityPermission REGISTER_MODULE = 
+			new RuntimeSecurityPermission("app.security.module.register");
 	
-	public static final RuntimeSecurityPermission UNREGISTER_MODULE = new RuntimeSecurityPermission("app.security.module.unregister");
+	public static final RuntimeSecurityPermission UNREGISTER_MODULE = 
+			new RuntimeSecurityPermission("app.security.module.unregister");
 	
-	private ConcurrentMap<String, LoginModuleProvider> modules;
+	private ConcurrentMap<String, AuthenticationProvider> modules;
 	
 	private PluginType pluginType;
 	
-	public SystemUserLoginModuleManager() {
+	public AuthenticationManagerImp() {
 	}
 	
 	@Inject
-	public SystemUserLoginModuleManager(PluginType pluginType) {
+	public AuthenticationManagerImp(PluginType pluginType) {
 		this.modules = new ConcurrentHashMap<>();
 		this.pluginType = pluginType;
 	}
 	
 	@Override
-	public void registerLoginModule(String name, LoginModuleProvider value) {
+	public void registerAuthenticationProvider(String name, AuthenticationProvider value) {
 		
 		ContextSystemSecurityCheck.checkPermission(REGISTER_MODULE);
 		
@@ -50,7 +55,7 @@ public class SystemUserLoginModuleManager implements LoginModuleManager{
 	}
 
 	@Override
-	public List<String> getLoginModules() {
+	public List<String> getAuthenticationProviders() {
 		
 		//ContextSystemSecurityCheck.checkPermission(GET_MODULE);
 		
@@ -58,7 +63,7 @@ public class SystemUserLoginModuleManager implements LoginModuleManager{
 	}
 
 	@Override
-	public void unregisterLoginModule(String name) {
+	public void unregisterAuthenticationProvider(String name) {
 
 		ContextSystemSecurityCheck.checkPermission(UNREGISTER_MODULE);
 		
@@ -68,15 +73,7 @@ public class SystemUserLoginModuleManager implements LoginModuleManager{
 	@Override
 	public LoginModule getLoginModule() {
 		
-		String value = pluginType.getConfiguration().getString(LOGIN_MODULE_PROPERTY);
-		
-		LoginModuleProvider lmp = modules.get(value);
-		
-		if(lmp == null) {
-			throw new NullPointerException("modules");
-		}
-		
-		LoginModule lm = lmp.getLoginModule();
+		LoginModule lm = getAuthenticationProvider().getLoginModule();
 		
 		if(lm == null) {
 			throw new NullPointerException("LoginModule");
@@ -87,16 +84,20 @@ public class SystemUserLoginModuleManager implements LoginModuleManager{
 
 	@Override
 	public Subject getSubject() {
+		return getLoginModule().getSubject();
+	}
+	
+	private AuthenticationProvider getAuthenticationProvider() {
 		
 		String value = pluginType.getConfiguration().getString(LOGIN_MODULE_PROPERTY);
 		
-		LoginModuleProvider lmp = modules.get(value);
+		AuthenticationProvider lmp = modules.get(value);
 		
 		if(lmp == null) {
 			throw new NullPointerException("modules");
 		}
 		
-		return lmp.getSubject();
+		return lmp;
 	}
 	
 }

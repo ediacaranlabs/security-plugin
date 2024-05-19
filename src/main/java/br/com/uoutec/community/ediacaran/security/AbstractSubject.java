@@ -18,7 +18,7 @@ public abstract class AbstractSubject
 		
 		if(principal.getPermissions() != null) {
 			for( Authorization a: principal.getPermissions()) {
-				if(a.accept(permission)) {
+				if(a.isPermitted(permission)) {
 					return true;
 				}
 			}

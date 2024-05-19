@@ -8,7 +8,7 @@ public class SubjectProviderImp
 	implements SubjectProvider{
 
 	@Inject
-	private LoginModuleManager loginModuleManager;
+	private AuthenticationManager loginModuleManager;
 			
 	@Override
 	public Subject getSubject() {

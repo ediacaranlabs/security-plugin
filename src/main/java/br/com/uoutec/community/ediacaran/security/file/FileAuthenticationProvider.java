@@ -4,22 +4,22 @@ import javax.inject.Inject;
 
 import br.com.uoutec.community.ediacaran.security.AuthenticatedSubject;
 import br.com.uoutec.community.ediacaran.security.LoginModule;
-import br.com.uoutec.community.ediacaran.security.LoginModuleProvider;
+import br.com.uoutec.community.ediacaran.security.AuthenticationProvider;
 import br.com.uoutec.community.ediacaran.security.Principal;
 import br.com.uoutec.community.ediacaran.security.Subject;
 import br.com.uoutec.community.ediacaran.security.jaas.UserPrincipal;
-import br.com.uoutec.ediacaran.core.SecurityProvider;
+import br.com.uoutec.ediacaran.core.UserPrincipalProvider;
 import br.com.uoutec.ediacaran.core.plugins.EntityContextPlugin;
 
-public class FileLoginModuleProvider implements LoginModuleProvider {
+public class FileAuthenticationProvider implements AuthenticationProvider {
 
 	private FileUserRepository fileUserRepository;
 	
-	public FileLoginModuleProvider() {
+	public FileAuthenticationProvider() {
 	}
 	
 	@Inject
-	public FileLoginModuleProvider(FileUserRepository fileUserRepository) {
+	public FileAuthenticationProvider(FileUserRepository fileUserRepository) {
 		this.fileUserRepository = fileUserRepository;
 	}
 	
@@ -30,8 +30,8 @@ public class FileLoginModuleProvider implements LoginModuleProvider {
 
 	@Override
 	public Subject getSubject() {
-		SecurityProvider securityProvider = 
-				EntityContextPlugin.getEntity(SecurityProvider.class);
+		UserPrincipalProvider securityProvider = 
+				EntityContextPlugin.getEntity(UserPrincipalProvider.class);
 		
 		UserPrincipal userPrincipal = (UserPrincipal)securityProvider.getUserPrincipal();
 		

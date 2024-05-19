@@ -1,6 +1,6 @@
 package br.com.uoutec.community.ediacaran.security;
 
-import br.com.uoutec.community.ediacaran.security.file.FileLoginModuleProvider;
+import br.com.uoutec.community.ediacaran.security.file.FileAuthenticationProvider;
 import br.com.uoutec.ediacaran.core.AbstractPlugin;
 import br.com.uoutec.ediacaran.core.plugins.EntityContextPlugin;
 
@@ -14,10 +14,10 @@ public class PluginInstaller extends AbstractPlugin{
 
 	private void applySecurityConfiguration() throws SecurityRegistryException {
 		
-		SecurityRegistry securityRegistry = EntityContextPlugin.getEntity(SecurityRegistry.class);
+		AuthorizationManager am = EntityContextPlugin.getEntity(AuthorizationManager.class);
 		
-		securityRegistry.registerRole(new Role("manager","Manager","Application Manger", null, null, null));
-		securityRegistry.registerRole(new Role("user","User","Authenticated user", null, null, null));
+		am.registerRole(new Role("manager","Manager","Application Manger", null, null, null));
+		am.registerRole(new Role("user","User","Authenticated user", null, null, null));
 		
 		/*
 		PluginType pluginType = EntityContextPlugin.getEntity(PluginType.class);
@@ -26,16 +26,16 @@ public class PluginInstaller extends AbstractPlugin{
 				pluginType.getConfiguration().getBoolean(USE_DEFAULT_AUTHENTICATION_PROVIDER_PROPERTY);
 		*/
 		
-		FileLoginModuleProvider flmp = EntityContextPlugin.getEntity(FileLoginModuleProvider.class);
-		LoginModuleManager lmm = EntityContextPlugin.getEntity(LoginModuleManager.class);
-		lmm.registerLoginModule("file", flmp);
+		FileAuthenticationProvider flmp = EntityContextPlugin.getEntity(FileAuthenticationProvider.class);
+		AuthenticationManager lmm = EntityContextPlugin.getEntity(AuthenticationManager.class);
+		lmm.registerAuthenticationProvider("file", flmp);
 		
 	}
 
 	@Override
 	public void uninstall() throws Throwable {
-		LoginModuleManager lmm = EntityContextPlugin.getEntity(LoginModuleManager.class);
-		lmm.unregisterLoginModule("file");
+		AuthenticationManager lmm = EntityContextPlugin.getEntity(AuthenticationManager.class);
+		lmm.unregisterAuthenticationProvider("file");
 	}
 	
 	

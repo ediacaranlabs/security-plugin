@@ -1,5 +1,6 @@
 package br.com.uoutec.community.ediacaran.security;
 
+@Deprecated
 public abstract class AbstractAuthorizationManagerPlugin
 	implements AuthorizationManagerPlugin{
 

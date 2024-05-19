@@ -14,8 +14,14 @@ import br.com.uoutec.application.security.ContextSystemSecurityCheck;
 import br.com.uoutec.application.security.RuntimeSecurityPermission;
 
 @Singleton
+@Deprecated
 public class SecurityRegistryImp implements SecurityRegistry {
 
+	@Override
+	public void flush() {
+	}
+
+	/*
 	private static final String idRegex = "[A-Z0-9]+(\\_[A-Z0-9]+)*";
 	
 	private final Authorization authorization;
@@ -148,5 +154,6 @@ public class SecurityRegistryImp implements SecurityRegistry {
 		Collections.sort(list, (o1, o2) -> o1.getId().compareTo(o2.getId()));
 		return Collections.unmodifiableList(list);
 	}
+	*/
 	
 }

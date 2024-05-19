@@ -17,8 +17,8 @@ import com.google.gson.reflect.TypeToken;
 
 import br.com.uoutec.application.io.Path;
 import br.com.uoutec.community.ediacaran.security.AuthorizationException;
+import br.com.uoutec.community.ediacaran.security.AuthorizationManager;
 import br.com.uoutec.community.ediacaran.security.Principal;
-import br.com.uoutec.community.ediacaran.security.SecurityRegistry;
 import br.com.uoutec.community.ediacaran.security.jaas.Authentication;
 import br.com.uoutec.community.ediacaran.security.jaas.UsernamePasswordAuthentication;
 import br.com.uoutec.ediacaran.core.plugins.PluginConfigurationMetadata;
@@ -44,7 +44,7 @@ public class FileUserRepository {
 	private PluginType pluginType;
 
 	@Inject
-	private SecurityRegistry securityRegistry;
+	private AuthorizationManager authorizationManager;
 	
 	public FileUserRepository() {
 	}
@@ -111,7 +111,7 @@ public class FileUserRepository {
 		}
 		
 		for(FileUser e: data) {
-			e.setPermissions(securityRegistry.toAuthorization(e.getStringPermissions()));
+			e.setPermissions(authorizationManager.toAuthorization(e.getStringPermissions()));
 			usersMap.put(e.getName(), e);
 		}
 		

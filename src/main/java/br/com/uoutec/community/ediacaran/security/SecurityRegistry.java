@@ -1,13 +1,12 @@
 package br.com.uoutec.community.ediacaran.security;
 
-import java.util.List;
-import java.util.Set;
-
 import br.com.uoutec.ediacaran.core.plugins.PublicBean;
 import br.com.uoutec.entity.registry.Registry;
 
+@Deprecated
 public interface SecurityRegistry extends Registry, PublicBean{
 
+	/*
 	public static final String PERMISSION_PREFIX = "app.security.";
 	
 	String registerRole(Role role) throws SecurityRegistryException;
@@ -26,6 +25,7 @@ public interface SecurityRegistry extends Registry, PublicBean{
 	
 	List<Role> getAllRoles();
 	
-	List<AuthorizationEntry> getAllAuthorizations();
+	List<Authorization> getAllAuthorizations();
+	*/
 	
 }

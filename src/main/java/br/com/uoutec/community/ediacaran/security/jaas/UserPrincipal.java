@@ -5,8 +5,7 @@ import java.util.Set;
 
 import br.com.uoutec.community.ediacaran.security.Authorization;
 
-public class UserPrincipal 
-	implements java.security.Principal, Principal {
+public class UserPrincipal implements Principal {
 
 	private final Object systemID;
 	
