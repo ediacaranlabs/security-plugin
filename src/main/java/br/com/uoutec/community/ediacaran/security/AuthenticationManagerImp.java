@@ -13,7 +13,8 @@ import br.com.uoutec.application.security.RuntimeSecurityPermission;
 import br.com.uoutec.ediacaran.core.plugins.PluginType;
 
 @Singleton
-public class AuthenticationManagerImp implements AuthenticationManager {
+public class AuthenticationManagerImp 
+	implements AuthenticationManager {
 
 	public static final String LOGIN_MODULE_PROPERTY = 
 			"authentication_provider";
@@ -32,15 +33,11 @@ public class AuthenticationManagerImp implements AuthenticationManager {
 	
 	private ConcurrentMap<String, AuthenticationProvider> modules;
 	
-	private PluginType pluginType;
-	
-	public AuthenticationManagerImp() {
-	}
-	
 	@Inject
-	public AuthenticationManagerImp(PluginType pluginType) {
+	private PluginType pluginType;
+
+	public AuthenticationManagerImp() {
 		this.modules = new ConcurrentHashMap<>();
-		this.pluginType = pluginType;
 	}
 	
 	@Override
@@ -84,7 +81,7 @@ public class AuthenticationManagerImp implements AuthenticationManager {
 
 	@Override
 	public Subject getSubject() {
-		return getLoginModule().getSubject();
+		return getAuthenticationProvider().getSubject();
 	}
 	
 	private AuthenticationProvider getAuthenticationProvider() {

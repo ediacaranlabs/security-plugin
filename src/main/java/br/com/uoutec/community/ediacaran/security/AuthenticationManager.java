@@ -2,7 +2,9 @@ package br.com.uoutec.community.ediacaran.security;
 
 import java.util.List;
 
-public interface AuthenticationManager {
+import br.com.uoutec.ediacaran.core.plugins.PublicBean;
+
+public interface AuthenticationManager extends PublicBean{
 
 	void registerAuthenticationProvider(String name, AuthenticationProvider value);
 
@@ -13,6 +15,5 @@ public interface AuthenticationManager {
 	LoginModule getLoginModule();
 	
 	Subject getSubject();
-	
 	
 }
