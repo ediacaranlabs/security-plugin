@@ -28,15 +28,12 @@ public abstract class AbstractLoginModule implements LoginModule {
 	
 	protected Map<String, ?> options;
 	
-	protected Subject subject;
-
-	protected javax.security.auth.Subject jaaSubject;
+	private javax.security.auth.Subject jaaSubject;
 
 	private List<Callback> callbacks;
 	
-	public AbstractLoginModule(Subject subject, List<Callback> callbacks) {
+	public AbstractLoginModule(List<Callback> callbacks) {
 		this.callbacks = callbacks;
-		this.subject = subject;
 	}
 	
 	public void initialize(javax.security.auth.Subject subject, 
@@ -47,10 +44,6 @@ public abstract class AbstractLoginModule implements LoginModule {
 	    this.jaaSubject      = subject;
 	}
 	
-	public Subject getSubject() {
-		return subject;
-	}
-
     public boolean login() throws LoginException{
     	
         if (callbackHandler == null) {

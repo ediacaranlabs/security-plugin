@@ -7,6 +7,12 @@ import br.com.uoutec.ediacaran.core.plugins.PublicBean;
 
 public interface AuthorizationManager extends PublicBean {
 
+	void registerAuthorizationProvider(String name, AuthorizationProvider value);
+
+	List<String> getAuthorizationProviders();
+
+	void unregisterAuthorizationProvider(String name);
+	
 	String registerRole(Role role) throws SecurityRegistryException;
 
 	boolean unregisterRole(String id);
@@ -15,8 +21,6 @@ public interface AuthorizationManager extends PublicBean {
 			String resourceBundle) throws SecurityRegistryException;
 	
 	boolean unregisterAuthorization(String value);
-	
-	Authorization getAuthorization(String value);
 	
 	Role getRole(String id);
 	

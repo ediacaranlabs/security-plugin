@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentMap;
 
 import br.com.uoutec.community.ediacaran.system.i18n.PluginLanguageUtils;
 
-public class AuthorizationEntity implements Authorization{
+public class AuthorizationImp implements Authorization{
 
 	private final String id;
 	
@@ -22,25 +22,25 @@ public class AuthorizationEntity implements Authorization{
 	
 	private final String descriptionTemplate;
 
-	private final ConcurrentMap<String, AuthorizationEntity> groups;
+	private final ConcurrentMap<String, AuthorizationImp> groups;
 	
-	public AuthorizationEntity(String id, String name, String description) {
+	public AuthorizationImp(String id, String name, String description) {
 		this(id, name, description, null, null, null, null);
 	}
 	
-	public AuthorizationEntity(String id, String name, String description, Set<AuthorizationEntity> groups) {
+	public AuthorizationImp(String id, String name, String description, Set<AuthorizationImp> groups) {
 		this(id, name, description, null, null, null, groups);
 	}
 	
-	public AuthorizationEntity(String id, String name, String description, 
-			String resourceBundle, String nameTemplate, String descriptionTemplate, Set<AuthorizationEntity> groups) {
+	public AuthorizationImp(String id, String name, String description, 
+			String resourceBundle, String nameTemplate, String descriptionTemplate, Set<AuthorizationImp> groups) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.resourceBundle = resourceBundle;
 		this.nameTemplate = nameTemplate;
 		this.descriptionTemplate = descriptionTemplate;
-		this.groups = new ConcurrentHashMap<String, AuthorizationEntity>();
+		this.groups = new ConcurrentHashMap<String, AuthorizationImp>();
 		
 		if(groups != null) {
 			groups.stream().forEach(e->this.groups.put(e.getId(), e));
@@ -116,7 +116,7 @@ public class AuthorizationEntity implements Authorization{
 			
 			if(idx < parts.length) {
 				
-				AuthorizationEntity authorization = groups.get(parts[idx]);
+				AuthorizationImp authorization = groups.get(parts[idx]);
 				
 				if(authorization == null) {
 					return false;
@@ -151,11 +151,11 @@ public class AuthorizationEntity implements Authorization{
 	}
     */
 	
-	void put(AuthorizationEntity value, boolean create, String ... groups) {
+	void put(AuthorizationImp value, boolean create, String ... groups) {
 		put(value, groups, create, 0);
 	}
 	
-	private void put(AuthorizationEntity value, String[] parts, boolean create, int idx) {
+	private void put(AuthorizationImp value, String[] parts, boolean create, int idx) {
 
 		if(idx >= parts.length) {
 			groups.put(value.getId(), value);
@@ -164,11 +164,11 @@ public class AuthorizationEntity implements Authorization{
 		
 		String p = parts[idx];
 		
-		AuthorizationEntity authorization = groups.get(p);
+		AuthorizationImp authorization = groups.get(p);
 		
 		if(authorization == null) {
 			if(create) {
-				authorization = new AuthorizationEntity(p, p, p);
+				authorization = new AuthorizationImp(p, p, p);
 				groups.put(p, authorization);
 			}
 			else {
@@ -179,11 +179,11 @@ public class AuthorizationEntity implements Authorization{
 		authorization.put(value, parts, create, idx + 1);
 	}
 
-	AuthorizationEntity get(String ... groups) {
+	AuthorizationImp get(String ... groups) {
 		return get(groups, 0);
 	}
 	
-	private AuthorizationEntity get(String[] parts, int idx) {
+	private AuthorizationImp get(String[] parts, int idx) {
 
 		if(idx >= parts.length) {
 			return this;
@@ -191,7 +191,7 @@ public class AuthorizationEntity implements Authorization{
 		
 		String p = parts[idx];
 		
-		AuthorizationEntity authorization = groups.get(p);
+		AuthorizationImp authorization = groups.get(p);
 		
 		if(authorization == null) {
 			return null;
@@ -208,7 +208,7 @@ public class AuthorizationEntity implements Authorization{
 
 		String p = parts[idx];
 		
-		AuthorizationEntity authorization = groups.get(p);
+		AuthorizationImp authorization = groups.get(p);
 		
 		if(authorization == null) {
 			return false;
@@ -238,7 +238,7 @@ public class AuthorizationEntity implements Authorization{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AuthorizationEntity other = (AuthorizationEntity) obj;
+		AuthorizationImp other = (AuthorizationImp) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
