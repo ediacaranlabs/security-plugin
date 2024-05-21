@@ -1,14 +1,19 @@
 package br.com.uoutec.community.ediacaran.security;
 
+import java.io.Serializable;
 import java.util.Set;
 
-public interface Principal {
+public interface Principal 
+	extends AuthorizationInstrument, 
+	Serializable {
 
 	java.security.Principal getUserPrincipal();
 	
 	Set<java.security.Principal> getPrincipals();
 	
-    Set<String> getRoles();
+    Set<String> getStringRoles();
+    
+	Set<Role> getRoles();
 
     Set<String> getStringPermissions();
 	

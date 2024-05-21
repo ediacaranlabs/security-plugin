@@ -22,6 +22,8 @@ public interface AuthorizationManager extends PublicBean {
 	
 	Set<Authorization> toAuthorization(Set<String> value);
 	
+	Set<Authorization> toAuthorization(String ... value);
+	
 	List<Role> getAllRoles();
 	
 	List<AuthorizationEntry> getAllAuthorizations();

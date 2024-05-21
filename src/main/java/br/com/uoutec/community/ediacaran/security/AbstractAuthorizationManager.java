@@ -11,8 +11,6 @@ import java.util.stream.Collectors;
 
 import br.com.uoutec.application.security.ContextSystemSecurityCheck;
 import br.com.uoutec.application.security.RuntimeSecurityPermission;
-import br.com.uoutec.ediacaran.core.UserPrincipalProvider;
-import br.com.uoutec.ediacaran.core.plugins.EntityContextPlugin;
 
 public abstract class AbstractAuthorizationManager 
 	implements AuthorizationManager {
@@ -31,19 +29,6 @@ public abstract class AbstractAuthorizationManager
 		authorization = new AuthorizationEntity("*", "all", "All");
 		this.roles = new ConcurrentHashMap<String, Role>();
 		this.authorizationMap = new ConcurrentHashMap<String, AuthorizationEntry>();
-	}
-	
-	public Subject getSubject() {
-		UserPrincipalProvider securityProvider = 
-				EntityContextPlugin.getEntity(UserPrincipalProvider.class);
-		
-		Principal userPrincipal = (Principal)securityProvider.getUserPrincipal();
-		
-		if(userPrincipal instanceof Principal) {
-			return new AuthenticatedSubject(userPrincipal);
-		}
-		
-		return null;
 	}
 	
 	public String registerRole(Role role) throws SecurityRegistryException{
@@ -111,6 +96,11 @@ public abstract class AbstractAuthorizationManager
 		return groups.length == 0? authorization : authorization.get(groups);
 	}
 
+	@Override
+	public Set<Authorization> toAuthorization(String... value) {
+		return toAuthorization(Arrays.stream(value).collect(Collectors.toSet()));
+	}
+	
 	public Set<Authorization> toAuthorization(Set<String> value){
 		
 		AuthorizationEntity root = new AuthorizationEntity("*", "*", "*");

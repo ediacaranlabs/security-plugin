@@ -2,13 +2,19 @@ package br.com.uoutec.community.ediacaran.security.file;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import br.com.uoutec.community.ediacaran.security.AbstractAuthorizationInstrument;
 import br.com.uoutec.community.ediacaran.security.Authorization;
 import br.com.uoutec.community.ediacaran.security.Principal;
+import br.com.uoutec.community.ediacaran.security.Role;
 import br.com.uoutec.community.ediacaran.security.jaas.RolePrincipal;
 import br.com.uoutec.community.ediacaran.security.jaas.UserPrincipal;
 
-public class FilePrincipal implements Principal{
+public class FilePrincipal 
+	extends AbstractAuthorizationInstrument implements Principal{
+
+	private static final long serialVersionUID = 9059423309825551689L;
 
 	private final FileUser user;
 	
@@ -20,7 +26,12 @@ public class FilePrincipal implements Principal{
 		this.user = user;
 		this.principals = new HashSet<>();
 		this.userPrincipal = new UserPrincipal(user.getName(), 
-				user.getRoles(), user.getStringPermissions(), user.getPermissions(), principals);
+				user.getRoles(),
+				user.getRoles().stream().map((e)->new Role(e, null, null)).collect(Collectors.toSet()), 
+				user.getStringPermissions(), 
+				user.getPermissions(), 
+				principals
+		);
 		loadPrinpals();
 	}
 
@@ -29,7 +40,7 @@ public class FilePrincipal implements Principal{
 		principals.add(this.userPrincipal);
 		
 	    if(userPrincipal.getRoles() != null && !userPrincipal.getRoles().isEmpty()) {
-	    	for(String roleName: userPrincipal.getRoles()) {
+	    	for(String roleName: userPrincipal.getStringRoles()) {
 		        RolePrincipal role = new RolePrincipal(roleName);
 		        principals.add(role);
 	    	}
@@ -48,10 +59,15 @@ public class FilePrincipal implements Principal{
 	}
 	
 	@Override
-	public Set<String> getRoles() {
-		return user.getRoles();
+	public Set<String> getStringRoles() {
+		return userPrincipal.getStringRoles();
 	}
 
+	@Override
+	public Set<Role> getRoles() {
+		return userPrincipal.getRoles();
+	}
+	
 	@Override
 	public Set<String> getStringPermissions() {
 		return user.getStringPermissions();
@@ -60,6 +76,11 @@ public class FilePrincipal implements Principal{
 	@Override
 	public Set<Authorization> getPermissions() {
 		return user.getPermissions();
+	}
+
+	@Override
+	protected Principal getPrincipal() {
+		return this;
 	}
 
 }
