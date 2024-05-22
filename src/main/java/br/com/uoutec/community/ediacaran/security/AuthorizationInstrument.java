@@ -8,6 +8,8 @@ public interface AuthorizationInstrument extends Serializable {
 
     boolean isGranted(String permission);
     
+    boolean isGranted(List<String> permission);
+    
     boolean isPermitted(String permission);
 
     boolean[] isPermitted(String... permissions);

@@ -14,6 +14,10 @@ public abstract class AbstractAuthorizationInstrument
     public boolean isGranted(String permission) {
     	return isPermitted(permission);
     }
+
+    public boolean isGranted(List<String> permission) {
+    	return isPermittedAll(permission);
+    }
     
 	@Override
 	public boolean isPermitted(String permission) {
