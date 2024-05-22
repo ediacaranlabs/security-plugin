@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import br.com.uoutec.community.ediacaran.security.AbstractAuthorizationInstrument;
 import br.com.uoutec.community.ediacaran.security.Authorization;
 import br.com.uoutec.community.ediacaran.security.Principal;
-import br.com.uoutec.community.ediacaran.security.Role;
+import br.com.uoutec.community.ediacaran.security.RoleEntity;
 import br.com.uoutec.community.ediacaran.security.jaas.RolePrincipal;
 import br.com.uoutec.community.ediacaran.security.jaas.UserPrincipal;
 
@@ -27,7 +27,7 @@ public class FilePrincipal
 		this.principals = new HashSet<>();
 		this.userPrincipal = new UserPrincipal(user.getName(), 
 				user.getRoles(),
-				user.getRoles().stream().map((e)->new Role(e, null, null)).collect(Collectors.toSet()), 
+				user.getRoles().stream().map((e)->new RoleEntity(e, null, null)).collect(Collectors.toSet()), 
 				user.getStringPermissions(), 
 				user.getPermissions(), 
 				principals
@@ -64,7 +64,7 @@ public class FilePrincipal
 	}
 
 	@Override
-	public Set<Role> getRoles() {
+	public Set<RoleEntity> getRoles() {
 		return userPrincipal.getRoles();
 	}
 	

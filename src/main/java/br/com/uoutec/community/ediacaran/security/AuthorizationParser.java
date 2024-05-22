@@ -4,15 +4,12 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class DefaultAuthorizationProvider 
-	implements AuthorizationProvider {
+public class AuthorizationParser {
 
-	@Override
 	public Set<Authorization> toAuthorization(String ... value) {
 		return toAuthorization(Arrays.stream(value).collect(Collectors.toSet()));
 	}
 	
-	@Override
 	public Set<Authorization> toAuthorization(Set<String> value){
 		
 		AuthorizationImp root = new AuthorizationImp("*", "*", "*");

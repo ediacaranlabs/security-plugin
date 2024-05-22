@@ -11,6 +11,10 @@ public abstract class AbstractAuthorizationInstrument
 
 	protected abstract Principal getPrincipal();
 	
+    public boolean isGranted(String permission) {
+    	return isPermitted(permission);
+    }
+    
 	@Override
 	public boolean isPermitted(String permission) {
 		

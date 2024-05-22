@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface AuthorizationInstrument extends Serializable {
 
+    boolean isGranted(String permission);
+    
     boolean isPermitted(String permission);
 
     boolean[] isPermitted(String... permissions);

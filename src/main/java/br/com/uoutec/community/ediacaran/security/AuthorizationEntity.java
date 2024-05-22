@@ -4,7 +4,7 @@ import java.util.Locale;
 
 import br.com.uoutec.community.ediacaran.system.i18n.PluginLanguageUtils;
 
-public class AuthorizationEntry {
+public class AuthorizationEntity {
 
 	private final String id;
 	
@@ -18,15 +18,15 @@ public class AuthorizationEntry {
 	
 	private final String descriptionTemplate;
 
-	public AuthorizationEntry(String id, String name, String description) {
+	public AuthorizationEntity(String id, String name, String description) {
 		this(id, name, description, null, null, null);
 	}
 
-	public AuthorizationEntry(String id, String name, String description, String resourceBundle) {
+	public AuthorizationEntity(String id, String name, String description, String resourceBundle) {
 		this(id, name, description, resourceBundle, null, null);
 	}
 	
-	public AuthorizationEntry(String id, String name, String description, 
+	public AuthorizationEntity(String id, String name, String description, 
 			String resourceBundle, String nameTemplate, String descriptionTemplate) {
 		this.id = id;
 		this.name = name;
@@ -88,7 +88,7 @@ public class AuthorizationEntry {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AuthorizationEntry other = (AuthorizationEntry) obj;
+		AuthorizationEntity other = (AuthorizationEntity) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

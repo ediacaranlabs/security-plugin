@@ -4,6 +4,8 @@ import br.com.uoutec.community.ediacaran.security.jaas.Authentication;
 
 public class AuthenticatedSubject extends AbstractSubject {
 
+	private static final long serialVersionUID = -2227940044664499382L;
+	
 	private Principal principal;
 	
 	public AuthenticatedSubject(Principal principal) {

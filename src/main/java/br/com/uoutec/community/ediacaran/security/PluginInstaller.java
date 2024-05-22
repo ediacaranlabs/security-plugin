@@ -16,15 +16,8 @@ public class PluginInstaller extends AbstractPlugin{
 		
 		AuthorizationManager am = EntityContextPlugin.getEntity(AuthorizationManager.class);
 		
-		am.registerRole(new Role("manager","Manager","Application Manger", null, null, null));
-		am.registerRole(new Role("user","User","Authenticated user", null, null, null));
-		
-		/*
-		PluginType pluginType = EntityContextPlugin.getEntity(PluginType.class);
-
-		boolean userDefaultAuthenticationProvider = 
-				pluginType.getConfiguration().getBoolean(USE_DEFAULT_AUTHENTICATION_PROVIDER_PROPERTY);
-		*/
+		am.registerRole("manager","Manager","Application Manger", null);
+		am.registerRole("user","User","Authenticated user", null);
 		
 		FileAuthenticationProvider flmp = EntityContextPlugin.getEntity(FileAuthenticationProvider.class);
 		AuthenticationManager lmm = EntityContextPlugin.getEntity(AuthenticationManager.class);

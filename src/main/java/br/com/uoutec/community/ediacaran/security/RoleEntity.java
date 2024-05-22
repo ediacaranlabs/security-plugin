@@ -4,7 +4,7 @@ import java.util.Locale;
 
 import br.com.uoutec.community.ediacaran.system.i18n.PluginLanguageUtils;
 
-public class Role {
+public class RoleEntity {
 
 	private final String id;
 	
@@ -18,12 +18,12 @@ public class Role {
 	
 	private final String descriptionTemplate;
 
-	public Role(String id, String name, String description) {
+	public RoleEntity(String id, String name, String description) {
 		this(id, name, description, null, null, null);
 	}
-	
-	public Role(String id, String name, String description, 
-			String resourceBundle, String nameTemplate, String descriptionTemplate) {
+
+	public RoleEntity(String id, String name, String description, 
+			String nameTemplate, String descriptionTemplate, String resourceBundle) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
@@ -84,7 +84,7 @@ public class Role {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Role other = (Role) obj;
+		RoleEntity other = (RoleEntity) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

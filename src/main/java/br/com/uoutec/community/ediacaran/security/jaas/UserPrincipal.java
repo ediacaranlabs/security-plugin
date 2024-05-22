@@ -5,7 +5,7 @@ import java.util.Set;
 
 import br.com.uoutec.community.ediacaran.security.AbstractAuthorizationInstrument;
 import br.com.uoutec.community.ediacaran.security.Authorization;
-import br.com.uoutec.community.ediacaran.security.Role;
+import br.com.uoutec.community.ediacaran.security.RoleEntity;
 
 public class UserPrincipal 
 	extends AbstractAuthorizationInstrument 
@@ -17,7 +17,7 @@ public class UserPrincipal
 	
 	private final Set<String> stringRoles;
 	
-	private final Set<Role> roles;
+	private final Set<RoleEntity> roles;
 	
 	private final Set<String> stringPermissions;
 	
@@ -26,7 +26,7 @@ public class UserPrincipal
 	private final Set<java.security.Principal> principals;
 	
 	public UserPrincipal(Object systemID, Set<String> stringRoles,
-			Set<Role> roles, Set<String> stringPermissions,  Set<Authorization> permissions, 
+			Set<RoleEntity> roles, Set<String> stringPermissions,  Set<Authorization> permissions, 
 			Set<java.security.Principal> principals) {
 		this.systemID = systemID;
 		this.roles = Collections.unmodifiableSet(roles);
@@ -56,7 +56,7 @@ public class UserPrincipal
 	}
 
 	@Override
-	public Set<Role> getRoles() {
+	public Set<RoleEntity> getRoles() {
 		return roles;
 	}
 

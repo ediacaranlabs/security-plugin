@@ -13,7 +13,7 @@ public interface Principal
 	
     Set<String> getStringRoles();
     
-	Set<Role> getRoles();
+	Set<RoleEntity> getRoles();
 
     Set<String> getStringPermissions();
 	
