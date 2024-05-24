@@ -1,7 +1,10 @@
 package br.com.uoutec.community.ediacaran.security;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.stream.Collectors;
@@ -78,10 +81,43 @@ public class AuthorizationManagerImp
 		return roles.get(id);
 	}
 	
+	public List<RoleEntity> getRoles(String ... values){
+		return getRoles(Arrays.stream(values).collect(Collectors.toSet()));
+	}
+
+	public List<RoleEntity> getRoles(Set<String> values){
+		List<RoleEntity> list = new ArrayList<>();
+		for(String value: values) {
+			RoleEntity e = roles.get(value);
+			if(e != null) {
+				list.add(e);
+			}
+		}
+		Collections.sort(list, (o1, o2) -> o1.getId().compareTo(o2.getId()));
+		return list;
+	}
+	
 	public List<RoleEntity> getAllRoles(){
 		List<RoleEntity> list = roles.values().stream().collect(Collectors.toList());
 		Collections.sort(list, (o1, o2) -> o1.getId().compareTo(o2.getId()));
 		return Collections.unmodifiableList(list);
+	}
+	
+	public List<AuthorizationEntity> getAuthorizations(String ... values){
+		return getAuthorizations(Arrays.stream(values).collect(Collectors.toSet()));
+	}
+
+	public List<AuthorizationEntity> getAuthorizations(Set<String> values){
+		
+		List<AuthorizationEntity> list = new ArrayList<>();
+		for(String value: values) {
+			AuthorizationEntity e = authorizationMap.get(value);
+			if(e != null) {
+				list.add(e);
+			}
+		}
+		Collections.sort(list, (o1, o2) -> o1.getId().compareTo(o2.getId()));
+		return list;
 	}
 	
 	public List<AuthorizationEntity> getAllAuthorizations(){

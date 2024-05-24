@@ -5,13 +5,11 @@ import java.util.Set;
 public interface Authorization {
 
 	String getId();
-
-	String getName();
-
-	String getDescription();
-
-	String getResourceBundle();
 	
+	String[] getPath();
+	
+	String getNodeID();
+
 	Set<Authorization> getChilds();
 	
 	boolean isPermitted(Object value);
