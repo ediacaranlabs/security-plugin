@@ -21,6 +21,10 @@ public class AuthorizationImp implements Authorization {
 	public AuthorizationImp(String id) {
 		this(id, new DefaultInheritanceAuthorizationParser(), null);
 	}
+
+	public AuthorizationImp(String id, Set<AuthorizationImp> groups) {
+		this(id, new DefaultInheritanceAuthorizationParser(), groups);
+	}
 	
 	public AuthorizationImp(String id, InheritanceAuthorizationParser parser, 
 			Set<AuthorizationImp> groups) {

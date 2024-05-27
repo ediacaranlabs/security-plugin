@@ -31,15 +31,19 @@ public class AuthorizationParser {
 		return authorizationManager.getAuthorizations(value).stream().collect(Collectors.toSet());
 	}
 	
-	public Set<Authorization> toAuthorization(String ... value) {
-		return toAuthorization(Arrays.stream(value).collect(Collectors.toSet()));
+	public Set<Authorization> toAuthorizations(String ... value) {
+		return toAuthorizations(Arrays.stream(value).collect(Collectors.toSet()));
 	}
 
-	public Set<Authorization> toAuthorization(List<String> value){
-		return toAuthorization(value.stream().collect(Collectors.toSet()));
+	public Set<Authorization> toAuthorizations(List<String> value){
+		return toAuthorizations(value.stream().collect(Collectors.toSet()));
 	}
-	
-	public Set<Authorization> toAuthorization(Set<String> value){
+
+	public Set<Authorization> toAuthorizations(Set<String> value){
+		return toAuthorization(value).getChilds();	
+	}
+
+	public Authorization toAuthorization(Set<String> value){
 		
 		AuthorizationImp root = new AuthorizationImp("*");
 		if(value != null) {
@@ -51,7 +55,7 @@ public class AuthorizationParser {
 			}
 		}
 		
-		return root.getChilds();	
+		return root;	
 	}
 	
 }

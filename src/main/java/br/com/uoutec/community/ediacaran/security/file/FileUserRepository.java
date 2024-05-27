@@ -111,7 +111,7 @@ public class FileUserRepository {
 		}
 		
 		for(FileUser e: data) {
-			e.setPermissions(authorizationParser.toAuthorization(e.getStringPermissions()));
+			e.setPermissions(authorizationParser.toAuthorizations(e.getStringPermissions()));
 			usersMap.put(e.getName(), e);
 		}
 		
