@@ -11,18 +11,13 @@ import br.com.uoutec.ediacaran.core.UserPrincipalProvider;
 
 public class FileAuthenticationProvider implements AuthenticationProvider {
 
+	@Inject
 	private FileUserRepository fileUserRepository;
 	
+	@Inject
 	private UserPrincipalProvider securityProvider;
 	
 	public FileAuthenticationProvider() {
-	}
-	
-	@Inject
-	public FileAuthenticationProvider(FileUserRepository fileUserRepository,
-			UserPrincipalProvider securityProvider) {
-		this.fileUserRepository = fileUserRepository;
-		this.securityProvider = securityProvider;
 	}
 	
 	@Override
