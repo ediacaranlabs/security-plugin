@@ -79,7 +79,6 @@ public class AuthenticationManagerImp
 		return lm;
 	}
 
-	@Override
 	public Subject getSubject() {
 		return getAuthenticationProvider().getSubject();
 	}

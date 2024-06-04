@@ -16,6 +16,7 @@ public class PluginInstaller extends AbstractPlugin{
 		
 		AuthorizationManager am = EntityContextPlugin.getEntity(AuthorizationManager.class);
 		
+		am.registerRole("@not-authenticated","Not Authenticated","Not Authenticated", null);
 		am.registerRole("manager","Manager","Application Manger", null);
 		am.registerRole("user","User","Authenticated user", null);
 		
