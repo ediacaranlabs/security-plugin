@@ -1,5 +1,6 @@
 package br.com.uoutec.community.ediacaran.security.file;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -22,14 +23,15 @@ public class FilePrincipal
 	
 	private Set<java.security.Principal> principals;
 	
+	@SuppressWarnings("unchecked")
 	public FilePrincipal(FileUser user) {
 		this.user = user;
 		this.principals = new HashSet<>();
 		this.userPrincipal = new UserPrincipal(user.getName(), 
 				user.getRoles(),
 				user.getRoles().stream().map((e)->new RoleEntity(e, null, null)).collect(Collectors.toSet()), 
-				user.getStringPermissions(), 
-				user.getPermissions(), 
+				user.getStringPermissions() == null? Collections.EMPTY_SET : user.getStringPermissions(), 
+				user.getPermissions() == null? Collections.EMPTY_SET : user.getPermissions(), 
 				principals
 		);
 		loadPrinpals();

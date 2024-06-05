@@ -3,10 +3,11 @@ package br.com.uoutec.community.ediacaran.security;
 import java.io.Serializable;
 
 import javax.annotation.Priority;
-import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
+
+import br.com.uoutec.ediacaran.core.plugins.EntityContextPlugin;
 
 @Interceptor
 @RequiresRole("")
@@ -15,14 +16,19 @@ public class RequiresRoleInterceptor implements Serializable{
 
 	private static final long serialVersionUID = 653866956804466834L;
 
-	@Inject
-	private SubjectProvider subjectProvider;
-	
-	public RequiresRoleInterceptor(){
-    }
-    
 	private Subject getSubject() {
-		return subjectProvider.getSubject();
+		return getSubjectProvider().getSubject();
+	}
+	
+	private volatile SubjectProvider subjectProvider;
+
+	private SubjectProvider getSubjectProvider() {
+		if(subjectProvider == null) {
+			synchronized (this) {
+				subjectProvider = EntityContextPlugin.getEntity(SubjectProvider.class);
+			}
+		}
+		return subjectProvider;
 	}
 	
     @AroundInvoke

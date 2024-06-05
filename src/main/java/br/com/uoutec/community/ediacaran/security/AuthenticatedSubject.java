@@ -8,6 +8,9 @@ public class AuthenticatedSubject extends AbstractSubject {
 	
 	private Principal principal;
 	
+	public AuthenticatedSubject() {
+	}
+	
 	public AuthenticatedSubject(Principal principal) {
 		this.principal = principal;
 	}
