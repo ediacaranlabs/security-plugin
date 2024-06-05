@@ -14,6 +14,4 @@ public interface AuthenticationManager extends PublicBean{
 	
 	LoginModule getLoginModule();
 	
-	Subject getSubject();
-	
 }

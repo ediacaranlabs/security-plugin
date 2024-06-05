@@ -79,10 +79,6 @@ public class AuthenticationManagerImp
 		return lm;
 	}
 
-	public Subject getSubject() {
-		return getAuthenticationProvider().getSubject();
-	}
-	
 	private AuthenticationProvider getAuthenticationProvider() {
 		
 		String value = pluginType.getConfiguration().getString(LOGIN_MODULE_PROPERTY);

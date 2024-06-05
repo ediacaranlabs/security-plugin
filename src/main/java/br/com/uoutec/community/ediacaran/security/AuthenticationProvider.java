@@ -7,6 +7,4 @@ public interface AuthenticationProvider
 
 	LoginModule getLoginModule();
 	
-	Subject getSubject();
-	
 }
