@@ -1,5 +1,6 @@
 package br.com.uoutec.community.ediacaran.security;
 
+import br.com.uoutec.application.SystemProperties;
 import br.com.uoutec.community.ediacaran.security.file.FileAuthenticationProvider;
 import br.com.uoutec.ediacaran.core.AbstractPlugin;
 import br.com.uoutec.ediacaran.core.plugins.EntityContextPlugin;
@@ -24,12 +25,19 @@ public class PluginInstaller extends AbstractPlugin{
 		AuthenticationManager lmm = EntityContextPlugin.getEntity(AuthenticationManager.class);
 		lmm.registerAuthenticationProvider("file", flmp);
 		
+		String configPath = SystemProperties.getProperty("app.config");
+		configPath = configPath + "/jaas.config";
+		
+		SystemProperties.setProperty("java.security.auth.login.config", configPath);
 	}
 
 	@Override
 	public void uninstall() throws Throwable {
 		AuthenticationManager lmm = EntityContextPlugin.getEntity(AuthenticationManager.class);
 		lmm.unregisterAuthenticationProvider("file");
+		
+		SystemProperties.setProperty("java.security.auth.login.config", "");
+		
 	}
 	
 	
