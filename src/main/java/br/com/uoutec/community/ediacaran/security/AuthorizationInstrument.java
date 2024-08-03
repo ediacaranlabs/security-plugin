@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface AuthorizationInstrument extends Serializable {
 
-    boolean isGranted(String permission);
+    boolean isGrantedPermission(String permission);
     
     boolean isGranted(List<String> permission);
     
@@ -21,6 +21,8 @@ public interface AuthorizationInstrument extends Serializable {
     void checkPermissions(String ... permissions) throws AuthorizationException;
     
     void checkPermission(String permission) throws AuthorizationException;
+
+    boolean hasRoleIdentifier(String roleIdentifier);
 
     boolean hasRole(String roleIdentifier);
     

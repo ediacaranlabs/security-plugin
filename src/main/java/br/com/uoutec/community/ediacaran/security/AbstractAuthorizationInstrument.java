@@ -11,6 +11,10 @@ public abstract class AbstractAuthorizationInstrument
 
 	protected abstract Principal getPrincipal();
 	
+    public boolean isGrantedPermission(String permission) {
+    	return isPermitted(permission);
+    }
+	
     public boolean isGranted(String permission) {
     	return isPermitted(permission);
     }
@@ -92,11 +96,16 @@ public abstract class AbstractAuthorizationInstrument
 	}
 
 	@Override
+    public boolean hasRoleIdentifier(String roleIdentifier) {
+    	return hasRole(roleIdentifier);
+    }
+	
+	@Override
 	public boolean hasRole(String roleIdentifier) {
 		Principal principal = getPrincipal();
 		return principal == null? false : principal.getStringRoles().contains(roleIdentifier);
 	}
-
+	
 	@Override
 	public boolean[] hasRoles(List<String> roleIdentifiers) {
 		boolean[] result = new boolean[roleIdentifiers.size()];
