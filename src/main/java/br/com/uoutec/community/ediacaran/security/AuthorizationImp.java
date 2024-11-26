@@ -69,7 +69,7 @@ public class AuthorizationImp implements Authorization {
 
 		String value = authorization == null? null : String.valueOf(authorization);
 		
-		if("*".equals(getNodeID())) {
+		if("ALL".equals(getNodeID())) {
 			return true;
 		}
 		
