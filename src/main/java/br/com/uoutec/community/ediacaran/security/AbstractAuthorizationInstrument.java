@@ -150,4 +150,20 @@ public abstract class AbstractAuthorizationInstrument
 		checkRoles(Arrays.asList(roleIdentifiers));
 	}
 
+	@Override
+	public void checkAnyRoles(Collection<String> roleIdentifiers) throws AuthorizationException {
+		for(String roleIdentifier: roleIdentifiers) {
+			if(hasRole(roleIdentifier)) {
+				return;
+			}
+		}
+		
+		throw new AuthorizationException();
+	}
+
+	@Override
+	public void checkAnyRoles(String... roleIdentifiers) throws AuthorizationException {
+		checkAnyRoles(Arrays.asList(roleIdentifiers));
+	}
+	
 }

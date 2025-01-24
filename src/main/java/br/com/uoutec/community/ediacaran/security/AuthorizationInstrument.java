@@ -35,5 +35,9 @@ public interface AuthorizationInstrument extends Serializable {
     void checkRoles(Collection<String> roleIdentifiers) throws AuthorizationException;
 
     void checkRoles(String... roleIdentifiers) throws AuthorizationException;
+
+    void checkAnyRoles(Collection<String> roleIdentifiers) throws AuthorizationException;
+
+    void checkAnyRoles(String... roleIdentifiers) throws AuthorizationException;
     
 }
